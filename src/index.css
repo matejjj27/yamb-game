@@ -1,0 +1,162 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: all 0.3s ease;
+}
+:root {
+  --bg: #ffffff;
+  --text: #000000;
+  --primary: #4caf50;
+  --secondary: #f1f1f1;
+}
+body.dark {
+  --bg: #121212;
+  --text: #ffffff;
+  --primary: #bb86fc;
+  --secondary: #1f1f1f;
+}
+.app-container {
+  padding: 1rem;
+  text-align: center;
+}
+.toggle-darkmode {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.players {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.player {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background-color: var(--secondary);
+  color: var(--text);
+}
+.player.active {
+  border: 2px solid var(--primary);
+  font-weight: bold;
+}
+.dice-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.die {
+  width: 45px;
+  height: 45px;
+  background: var(--secondary);
+  border: 1.5px solid var(--primary);
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  padding: 5px;
+  position: relative;
+  cursor: pointer;
+}
+.die.locked {
+  opacity: 0.6;
+  border-color: red;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 60%;
+  background: transparent;
+  justify-self: center;
+  align-self: center;
+}
+.dot.active {
+  background: var(--text);
+}
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.primary {
+  background: var(--primary);
+  color: var(--text);
+  border: none;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.primary:disabled {
+  background: grey;
+  cursor: not-allowed;
+}
+.table-container {
+  margin-right: 30px;
+}
+.score-table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  max-width: 500px;
+}
+.score-table th,
+.score-table td {
+  border: 1px solid var(--text);
+  padding: 0.3rem;
+  width: 60px;
+  height: 22px;
+  text-align: center;
+}
+.score-table .clickable:hover {
+  background-color: var(--primary);
+  color: var(--bg);
+  cursor: pointer;
+}
+.score-table .empty-row td {
+  border: none !important;
+  cursor: auto !important;
+  background-color: transparent !important;
+  height: 4.5dvh;
+}
+.no-border {
+  border: none !important;
+  background-color: transparent !important;
+}
+.label {
+  padding: 0rem !important;
+}
+.total {
+  border: none !important;
+}
+.rules {
+  margin-top: 2rem;
+  text-align: left;
+  max-width: 400px;
+  margin-inline: auto;
+}
+.legend {
+  margin-top: 1rem;
+  text-align: left;
+  max-width: 400px;
+  margin-inline: auto;
+}
+@media (max-width: 600px) {
+  .dice-row {
+    flex-wrap: wrap;
+  }
+  .die {
+    width: 45px;
+    height: 45px;
+  }
+  .score-table {
+    font-size: 0.8rem;
+  }
+}

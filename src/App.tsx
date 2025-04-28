@@ -51,7 +51,6 @@ export default function App() {
   };
 
   const handleCellClick = (row: number, col: number) => {
-    console.log("before clicked");
     if (ROWS[row] === "") return;
     if (hasWrittenThisTurn) return;
 
@@ -64,7 +63,6 @@ export default function App() {
 
       if (!canWrite) return;
     } else if (!isCellEditable(row, col)) {
-      console.log("clicked");
       return;
     }
 
@@ -97,8 +95,6 @@ export default function App() {
   };
 
   const calculateAndFill = (row: number, col: number) => {
-    console.log(row, col, "calculateAndFill");
-
     const values = dice.map((d) => d.value);
     let score = 0;
     if (row < 6) {

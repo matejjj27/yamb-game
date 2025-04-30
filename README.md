@@ -30,16 +30,14 @@ Minimalistic, mobile-friendly, and fun to play with friends (pass & play style)!
 - **Which dice to keep ("lock")** and roll the rest again.
 - Or **lock in** a value into a free cell in the table.
 
+✅ The 4th column (⭐ column) is **special**: you can only fill it if you rolled all 5 dice at once or locked in a cell.
 ✅ You can **only lock a cell** if:
 - You **just rolled all 5 dice at once** in the previous roll.
-- Or after your **last roll** (0 rolls left) if **all dice are rolled**.
-
-✅ The 4th column (⭐ column) is **special**: you can only fill it if you rolled all 5 dice at once.
 
 ✅ Sections:
 - Upper Section (Ones, Twos, Threes, Fours, Fives, Sixes)
-- Middle Section (Max, Min, Straight, Full House)
-- Lower Section (Poker, Yamb)
+- Middle Section (Maximum, Minimum)
+- Lower Section (Straight, Full House, Poker, Yamb)
 
 ✅ Try to maximize your total score!
 
@@ -52,14 +50,14 @@ Minimalistic, mobile-friendly, and fun to play with friends (pass & play style)!
 
 - **Rolling**: Each player rolls the dice up to **three times**.
 - **Locking Dice**: After each roll, players may **lock dice** to keep their current value and roll the remaining dice again.
-- **Scoring**: After their turn, players must **lock a score into a free cell**.
+- **Scoring**: After their turn, players must **write a score into a free cell**.
 - **Columns**:
   - Column 1: Must be filled **top-to-bottom**.
-  - Column 2: Must be filled **bottom-to-top**.
-  - Column 3: Fill in **any order**.
-  - Column 4 (⭐): Special – only fill if you rolled **all 5 dice at once**.
+  - Column 2: Fill in **any order**.
+  - Column 3: Must be filled **bottom-to-top**.
+  - Column 4 (⭐): Special – only fill if you rolled **all 5 dice at once** or locked in a cell.
 - **Bonuses**:
-  - If the sum of Upper Section scores exceeds a threshold, bonus points are awarded.
+  - If the sum of Upper Section scores exceeds a threshold of 60, 30 bonus points are awarded.
   - "Yamb" (Five of a kind) yields high points!
 - **End of Game**: When all cells are filled, the player with the highest total wins.
 </details>

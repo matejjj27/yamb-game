@@ -16,7 +16,7 @@ export default function App() {
   const [scoreTable, setScoreTable] = useState(
     players.map(() => ROWS.map(() => Array(COLUMNS.length).fill(null)))
   );
-  const [previousCell, setPreviousCell] = useState(null);
+  const [previousCell, setPreviousCell] = useState<number[] | null>(null);
   const [lockedStarCell, setLockedStarCell] = useState<number[] | null>(null);
 
   const toggleLock = (id: string) => {
@@ -111,7 +111,7 @@ export default function App() {
       score = sorted === "12345" ? 40 : sorted === "23456" ? 45 : 0;
     } else if (row === 11) {
       const counts = values.reduce(
-        (acc, val) => ((acc[val] = (acc[val] || 0) + 1), acc),
+        (acc: Record<number, number>, val: number) => ((acc[val] = (acc[val] || 0) + 1), acc),
         {}
       );
       const has3 = Object.values(counts).includes(3);
@@ -119,7 +119,7 @@ export default function App() {
       score = has3 && has2 ? values.reduce((a, b) => a + b, 0) + 30 : 0;
     } else if (row === 12) {
       const counts = values.reduce(
-        (acc, val) => ((acc[val] = (acc[val] || 0) + 1), acc),
+        (acc: Record<number, number>, val: number) => ((acc[val] = (acc[val] || 0) + 1), acc),
         {}
       );
       const four = Object.entries(counts).find(([_, count]) => count >= 4);
@@ -188,7 +188,7 @@ export default function App() {
           >
             {[0, 1, 2].map((r) =>
               [0, 1, 2].map((c) => {
-                const active = diceDots[d.value].some(
+                const active = diceDots[d.value as keyof typeof diceDots].some(
                   ([dr, dc]) => dr === r && dc === c
                 );
                 return (
@@ -254,23 +254,22 @@ export default function App() {
                 </td>
                 {label === ""
                   ? COLUMNS.map((_, i) => (
-                      <td key={i} className="total">
-                        <strong>{calculateColumnGrandTotal(i)}</strong>
-                      </td>
-                    ))
+                    <td key={i} className="total">
+                      <strong>{calculateColumnGrandTotal(i)}</strong>
+                    </td>
+                  ))
                   : COLUMNS.map((_, colIdx) => (
-                      <td
-                        key={colIdx}
-                        className={`clickable ${
-                          label === "" ? "no-border" : ""
+                    <td
+                      key={colIdx}
+                      className={`clickable ${label === "" ? "no-border" : ""
                         }`}
-                        onClick={() => handleCellClick(rowIdx, colIdx)}
-                      >
-                        {label !== ""
-                          ? scoreTable[currentPlayerIndex][rowIdx][colIdx] ?? ""
-                          : ""}
-                      </td>
-                    ))}
+                      onClick={() => handleCellClick(rowIdx, colIdx)}
+                    >
+                      {label !== ""
+                        ? scoreTable[currentPlayerIndex][rowIdx][colIdx] ?? ""
+                        : ""}
+                    </td>
+                  ))}
               </tr>
             ))}
             <tr>

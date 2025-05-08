@@ -3,6 +3,7 @@ import "./index.css";
 import { v4 as uuidv4 } from "uuid";
 import { ROWS, COLUMNS, MAX_ROLLS, diceDots } from "./utils/constants";
 import { generateDice } from "./utils/functions";
+import { PlayerTotals, Section } from "./utils/types";
 
 export default function App() {
   const [players] = useState([
@@ -18,6 +19,13 @@ export default function App() {
   );
   const [previousCell, setPreviousCell] = useState<number[] | null>(null);
   const [lockedStarCell, setLockedStarCell] = useState<number[] | null>(null);
+  const [totals, setTotals] = useState<PlayerTotals[]>(
+    players.map(() => ({
+      top: Array(COLUMNS.length).fill(0),
+      mid: Array(COLUMNS.length).fill(0),
+      bottom: Array(COLUMNS.length).fill(0),
+    }))
+  );
 
   const toggleLock = (id: string) => {
     if (rolls === 0) return;
@@ -130,6 +138,13 @@ export default function App() {
     const newTable = [...scoreTable];
     newTable[currentPlayerIndex][row][col] = score;
     setScoreTable(newTable);
+    if (row >= 0 && row <= 5) {
+      calculateSectionColumnTotal(currentPlayerIndex, col, row, "top");
+    } else if (row >= 7 && row <= 8) {
+      calculateSectionColumnTotal(currentPlayerIndex, col, row, "mid");
+    } else if (row >= 10 && row <= 14) {
+      calculateSectionColumnTotal(currentPlayerIndex, col, row, "bottom");
+    }
   };
 
   const undo = () => {
@@ -142,17 +157,45 @@ export default function App() {
     setPreviousCell(null);
   };
 
-  const calculateColumnGrandTotal = (col: number) => {
-    const column = scoreTable[currentPlayerIndex].map((row) => row[col]);
-    const upper = column.slice(0, 6).reduce((a, b) => a + (b || 0), 0);
-    const upperBonus = upper >= 60 ? 30 : 0;
-    const max = column[7] || 0;
-    const min = column[8] || 0;
-    const ones = column[0] || 0;
-    const oneCount = ones / 1;
-    const middle = (max - min) * oneCount;
-    const lower = column.slice(10).reduce((a, b) => a + (b || 0), 0);
-    return upper + upperBonus + middle + lower;
+  const calculateSectionColumnTotal = (
+    playerIndex: number,
+    col: number,
+    row: number,
+    section: Section
+  ) => {
+    const column = scoreTable[playerIndex].map((row) => row[col]);
+    let rowsToCheck: number[] = [];
+    let total = 0;
+
+    if (section === "top") {
+      rowsToCheck = [0, 1, 2, 3, 4, 5];
+      const upper = rowsToCheck.reduce((sum, idx) => sum + (column[idx] || 0), 0);
+      const bonus = upper >= 60 ? 30 : 0;
+      total = upper + bonus;
+
+      if (row === 0)
+        calculateSectionColumnTotal(playerIndex, col, row, "mid");
+    }
+
+    if (section === "mid") {
+      const max = column[7];
+      const min = column[8];
+      total = (max - min) * column[0];
+    }
+
+    if (section === "bottom") {
+      rowsToCheck = [10, 11, 12, 13, 14];
+      total = rowsToCheck.reduce((sum, idx) => sum + (column[idx] || 0), 0);
+    }
+
+    setTotals((prev) => {
+      const updated = [...prev];
+      const player = { ...updated[playerIndex] };
+      player[section] = [...player[section]];
+      player[section][col] = total;
+      updated[playerIndex] = player;
+      return updated;
+    });
   };
 
   return (
@@ -251,7 +294,15 @@ export default function App() {
                 {label === ""
                   ? COLUMNS.map((_, i) => (
                     <td key={i} className="total">
-                      <strong>{calculateColumnGrandTotal(i)}</strong>
+                      <strong>
+                        {rowIdx === 6
+                          ? totals[currentPlayerIndex].top[i]
+                          : rowIdx === 9
+                            ? totals[currentPlayerIndex].mid[i]
+                            : rowIdx === 15
+                              ? totals[currentPlayerIndex].bottom[i]
+                              : ""}
+                      </strong>
                     </td>
                   ))
                   : COLUMNS.map((_, colIdx) => (
@@ -268,16 +319,6 @@ export default function App() {
                   ))}
               </tr>
             ))}
-            <tr>
-              <td className="total">
-                <strong>Total</strong>
-              </td>
-              {COLUMNS.map((_, i) => (
-                <td key={i} className="total">
-                  <strong>{calculateColumnGrandTotal(i)}</strong>
-                </td>
-              ))}
-            </tr>
           </tbody>
         </table>
       </div>

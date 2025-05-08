@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -159,4 +160,52 @@ body.dark {
   .score-table {
     font-size: 0.8rem;
   }
+}
+
+.info-panel {
+  margin: 1rem auto;
+  max-width: 600px;
+  padding: 0.5rem 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.rules summary {
+  font-size: 1.25rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+.rules-content {
+  padding: 0.5rem 0 0 1rem;
+  line-height: 1.6;
+}
+
+.rules-content ul {
+  padding-left: 1.2rem;
+  list-style-type: disc;
+}
+
+.legend {
+  margin-top: 1.5rem;
+}
+
+.legend h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.legend ul {
+  list-style: none;
+  padding-left: 0;
+  line-height: 1.5;
+}
+
+.legend li::before {
+  content: "➤";
+  color: #555;
+  display: inline-block;
+  width: 1.2em;
 }

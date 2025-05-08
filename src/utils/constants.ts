@@ -15,7 +15,8 @@ export const ROWS = [
   "S",
   "F",
   "P",
-  "Y"
+  "Y",
+  ""
 ];
 export const diceDots = {
   1: [[1, 1]],

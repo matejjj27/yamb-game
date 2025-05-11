@@ -24,7 +24,8 @@ export interface PlayerListProps {
 
 export interface DiceRowProps {
     dice: Dice[];
-    handleDiceClick: (id: string) => void;
+    rolls: number;
+    setDice: React.Dispatch<React.SetStateAction<Dice[]>>
 }
 
 export interface ButtonsProps {

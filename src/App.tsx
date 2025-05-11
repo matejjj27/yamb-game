@@ -32,13 +32,6 @@ export default function App() {
     }))
   );
 
-  const toggleLock = (id: string) => {
-    if (rolls === 0) return;
-    setDice((prev) =>
-      prev.map((d) => (d.id === id ? { ...d, locked: !d.locked } : d))
-    );
-  };
-
   const rollDice = () => {
     if (rolls >= MAX_ROLLS) return;
     if (rolls === 0) {
@@ -267,7 +260,8 @@ export default function App() {
 
       <DiceRow
         dice={dice}
-        handleDiceClick={toggleLock}
+        rolls={rolls}
+        setDice={setDice}
       />
 
       <Buttons

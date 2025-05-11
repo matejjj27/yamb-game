@@ -4,8 +4,15 @@ import { diceDots } from "../utils/constants";
 
 const DiceRow: React.FC<DiceRowProps> = ({
     dice,
-    handleDiceClick,
+    rolls,
+    setDice
 }) => {
+    const handleDiceClick = (id: string) => {
+        if (rolls === 0) return;
+        setDice((prev) =>
+            prev.map((d) => (d.id === id ? { ...d, locked: !d.locked } : d))
+        );
+    };
     return (
         <div className="dice-row">
             {dice.map((d) => (

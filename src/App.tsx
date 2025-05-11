@@ -1,9 +1,14 @@
 import { useState } from "react";
 import "./styles/App.css";
 import { v4 as uuidv4 } from "uuid";
-import { ROWS, COLUMNS, MAX_ROLLS, diceDots } from "./utils/constants";
+import { ROWS, COLUMNS, MAX_ROLLS } from "./utils/constants";
 import { generateDice } from "./utils/functions";
-import { PlayerTotals, Section } from "./utils/types";
+import { Dice, PlayerTotals, Section } from "./utils/types";
+import PlayerList from "./components/PlayerList";
+import DiceRow from "./components/DiceRow";
+import Buttons from "./components/Buttons";
+import Legend from "./components/Legend";
+import ScoreTable from "./components/ScoreTable";
 
 export default function App() {
   const [players] = useState([
@@ -11,7 +16,7 @@ export default function App() {
     { id: uuidv4(), name: "Player 2" }
   ]);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
-  const [dice, setDice] = useState(generateDice());
+  const [dice, setDice] = useState<Dice[]>(generateDice());
   const [rolls, setRolls] = useState(0);
   const [hasWrittenThisTurn, setHasWrittenThisTurn] = useState(false);
   const [scoreTable, setScoreTable] = useState(
@@ -91,7 +96,7 @@ export default function App() {
     } else if (COLUMNS[col] === "⬆️") {
       const reversed = [...column].reverse();
       const firstEmpty = reversed.findIndex(
-        (val, id) => val === null && id !== 4 && id !== 7
+        (val, id) => val === null && id !== 4 && id !== 7 && id !== 0
       );
 
       return ROWS.length - 1 - firstEmpty === row;
@@ -148,15 +153,65 @@ export default function App() {
     }
   };
 
-  const undo = () => {
+  const undoWriting = () => {
     if (!previousCell) return;
     const [row, col] = previousCell;
     const newTable = [...scoreTable];
     newTable[currentPlayerIndex][row][col] = null;
     setScoreTable(newTable);
+    recalculateTotalsForPlayer(currentPlayerIndex);
     setHasWrittenThisTurn(false);
     setPreviousCell(null);
   };
+
+  const recalculateTotalsForPlayer = (playerIndex: number) => {
+    const playerTable = scoreTable[playerIndex];
+    const newTotals = {
+      top: [0, 0, 0, 0],
+      mid: [0, 0, 0, 0],
+      bottom: [0, 0, 0, 0],
+    };
+
+    for (let col = 0; col < 4; col++) {
+      let top = 0, bottom = 0;
+      let max: number | null = null;
+      let min: number | null = null;
+      let firstRowVal: number | null = null;
+
+      for (let row = 0; row < playerTable.length; row++) {
+        const val = playerTable[row][col];
+        if (val === null) continue;
+
+        if (row >= 0 && row <= 5)
+          top += val;
+
+        if (row === 0) firstRowVal = val;
+        if (row === 7) max = val;
+        if (row === 8) min = val;
+
+        if (row >= 10 && row <= 14)
+          bottom += val;
+      }
+
+      newTotals.top[col] = top;
+
+      if (max !== null && min !== null && firstRowVal !== null) {
+        newTotals.mid[col] = (max - min) * firstRowVal;
+      } else {
+        newTotals.mid[col] = 0;
+      }
+
+      newTotals.bottom[col] = bottom;
+    }
+
+    setTotals((prev) => {
+      const updated = [...prev];
+      updated[playerIndex] = newTotals;
+      return updated;
+    });
+  };
+
+
 
   const calculateSectionColumnTotal = (
     playerIndex: number,
@@ -208,155 +263,32 @@ export default function App() {
         🌓
       </button>
       <h1>🎲 Yamb</h1>
-      <div className="players">
-        {players.map((player, i) => (
-          <div
-            key={player.id}
-            className={`player ${i === currentPlayerIndex ? "active" : ""}`}
-          >
-            {player.name}
-          </div>
-        ))}
-      </div>
+      <PlayerList players={players} currentPlayerIndex={currentPlayerIndex} />
 
-      <div className="dice-row">
-        {dice.map((d) => (
-          <div
-            key={d.id}
-            className={`die ${d.locked ? "locked" : ""}`}
-            onClick={() => toggleLock(d.id)}
-          >
-            {[0, 1, 2].map((r) =>
-              [0, 1, 2].map((c) => {
-                const active = diceDots[d.value as keyof typeof diceDots].some(
-                  ([dr, dc]) => dr === r && dc === c
-                );
-                return (
-                  <div
-                    key={`${r}${c}`}
-                    className={`dot ${active ? "active" : ""}`}
-                  />
-                );
-              })
-            )}
-          </div>
-        ))}
-      </div>
+      <DiceRow
+        dice={dice}
+        handleDiceClick={toggleLock}
+      />
 
-      <div className="buttons">
-        <button
-          className="primary"
-          onClick={rollDice}
-          disabled={rolls >= MAX_ROLLS}
-        >
-          Roll ({rolls}/{MAX_ROLLS})
-        </button>
-        <button
-          className="primary"
-          onClick={endTurn}
-          disabled={!hasWrittenThisTurn && !lockedStarCell}
-        >
-          End Turn
-        </button>
-        <button className="primary" onClick={undo} disabled={!previousCell}>
-          Undo
-        </button>
-        <button
-          className="primary"
-          onClick={() => {
-            const cell = prompt("Lock in row number (1–14) for ⭐ column:");
-            if (cell && !hasWrittenThisTurn) {
-              setLockedStarCell([+cell - 1, 3]);
-            }
-          }}
-        >
-          ⭐ Lock
-        </button>
-      </div>
+      <Buttons
+        rolls={rolls}
+        hasWrittenThisTurn={hasWrittenThisTurn}
+        lockedStarCell={lockedStarCell}
+        previousCell={previousCell}
+        rollDice={rollDice}
+        endTurn={endTurn}
+        undoWriting={undoWriting}
+        lockInCell={setLockedStarCell}
+      />
 
-      <div className="table-container">
-        <table className="score-table">
-          <thead>
-            <tr>
-              <th className="no-border"></th>
-              {COLUMNS.map((c, i) => (
-                <th key={i} className="no-border">
-                  {c}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {ROWS.map((label, rowIdx) => (
-              <tr key={rowIdx} className={label === "" ? "empty-row" : ""}>
-                <td className={label === "" ? "" : "no-border label"}>
-                  {label}
-                </td>
-                {label === ""
-                  ? COLUMNS.map((_, i) => (
-                    <td key={i} className="total">
-                      <strong>
-                        {rowIdx === 6
-                          ? totals[currentPlayerIndex].top[i]
-                          : rowIdx === 9
-                            ? totals[currentPlayerIndex].mid[i]
-                            : rowIdx === 14
-                              ? totals[currentPlayerIndex].bottom[i]
-                              : ""}
-                      </strong>
-                    </td>
-                  ))
-                  : COLUMNS.map((_, colIdx) => (
-                    <td
-                      key={colIdx}
-                      className={`clickable ${label === "" ? "no-border" : ""
-                        }`}
-                      onClick={() => handleCellClick(rowIdx, colIdx)}
-                    >
-                      {label !== ""
-                        ? scoreTable[currentPlayerIndex][rowIdx][colIdx] ?? ""
-                        : ""}
-                    </td>
-                  ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <ScoreTable
+        totals={totals}
+        scoreTable={scoreTable}
+        currentPlayerIndex={currentPlayerIndex}
+        handleCellClick={handleCellClick}
+      />
 
-      <section className="info-panel">
-        <details className="rules">
-          <summary>📜 Game Rules</summary>
-          <div className="rules-content">
-            <p>Yamb is a dice game similar to Yahtzee, played with 5 dice and a score sheet. Each player takes turns rolling the dice up to 3 times to achieve combinations and fill in cells in different columns.</p>
-            <ul>
-              <li>🎲 Each turn consists of up to 3 rolls.</li>
-              <li>📝 After rolling, the player must fill in one cell in the column that's currently editable.</li>
-              <li>⭐ The Special column allows writing in it only when the player rolled all 5 dice on the previous roll or after locking in a cell using the lock button also after rolling all 5 dice at once.</li>
-              <li>⬇️ Column must be filled top to bottom, no skipping.</li>
-              <li>⬆️ Column must be filled bottom to top.</li>
-              <li>⬇️⬆️ (Free column) can be filled in any order.</li>
-              <li>Bonus of 30 points if the upper section total reaches 60+.</li>
-              <li>Game ends when all players fill every cell.</li>
-              <li>🏆 Player with the highest total score wins.</li>
-            </ul>
-          </div>
-        </details>
-
-        <div className="legend">
-          <h3>📌 Legend</h3>
-          <ul>
-            <li>⬇️: Top to bottom</li>
-            <li>⬆️: Bottom to top</li>
-            <li>⬇️⬆️: Free column</li>
-            <li>⭐: Special column</li>
-            <li>S: Straight</li>
-            <li>F: Full House</li>
-            <li>P: Poker</li>
-            <li>Y: Yamb</li>
-          </ul>
-        </div>
-      </section>
+      <Legend />
     </div>
   );
 }

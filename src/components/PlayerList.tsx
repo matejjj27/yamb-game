@@ -1,7 +1,10 @@
 import React from "react";
 import { PlayerListProps } from "../utils/types";
 
-const PlayerList: React.FC<PlayerListProps> = ({ players, currentPlayerIndex }) => {
+const PlayerList: React.FC<PlayerListProps> = ({
+  players,
+  currentPlayerIndex,
+}) => {
   return (
     <div className="players">
       {players.map((player, i) => (

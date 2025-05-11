@@ -5,6 +5,6 @@ export function generateDice() {
   return Array.from({ length: DICE_COUNT }, () => ({
     value: Math.ceil(Math.random() * 6),
     locked: false,
-    id: uuidv4()
+    id: uuidv4(),
   }));
 }

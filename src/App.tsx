@@ -13,7 +13,7 @@ import ScoreTable from "./components/ScoreTable";
 export default function App() {
   const [players] = useState([
     { id: uuidv4(), name: "Player 1" },
-    { id: uuidv4(), name: "Player 2" }
+    { id: uuidv4(), name: "Player 2" },
   ]);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
   const [dice, setDice] = useState<Dice[]>(generateDice());
@@ -114,7 +114,9 @@ export default function App() {
       score = sorted === "12345" ? 40 : sorted === "23456" ? 45 : 0;
     } else if (row === 11) {
       const counts = values.reduce(
-        (acc: Record<number, number>, val: number) => ((acc[val] = (acc[val] || 0) + 1), acc),
+        (acc: Record<number, number>, val: number) => (
+          (acc[val] = (acc[val] || 0) + 1), acc
+        ),
         {}
       );
       const has3 = Object.values(counts).includes(3);
@@ -122,7 +124,9 @@ export default function App() {
       score = has3 && has2 ? values.reduce((a, b) => a + b, 0) + 30 : 0;
     } else if (row === 12) {
       const counts = values.reduce(
-        (acc: Record<number, number>, val: number) => ((acc[val] = (acc[val] || 0) + 1), acc),
+        (acc: Record<number, number>, val: number) => (
+          (acc[val] = (acc[val] || 0) + 1), acc
+        ),
         {}
       );
       const four = Object.entries(counts).find(([_, count]) => count >= 4);
@@ -166,7 +170,8 @@ export default function App() {
     };
 
     for (let col = 0; col < 4; col++) {
-      let top = 0, bottom = 0;
+      let top = 0,
+        bottom = 0;
       let max: number | null = null;
       let min: number | null = null;
       let firstRowVal: number | null = null;
@@ -175,15 +180,13 @@ export default function App() {
         const val = playerTable[row][col];
         if (val === null) continue;
 
-        if (row >= 0 && row <= 5)
-          top += val;
+        if (row >= 0 && row <= 5) top += val;
 
         if (row === 0) firstRowVal = val;
         if (row === 7) max = val;
         if (row === 8) min = val;
 
-        if (row >= 10 && row <= 14)
-          bottom += val;
+        if (row >= 10 && row <= 14) bottom += val;
       }
 
       newTotals.top[col] = top;
@@ -204,8 +207,6 @@ export default function App() {
     });
   };
 
-
-
   const calculateSectionColumnTotal = (
     playerIndex: number,
     col: number,
@@ -218,12 +219,14 @@ export default function App() {
 
     if (section === "top") {
       rowsToCheck = [0, 1, 2, 3, 4, 5];
-      const upper = rowsToCheck.reduce((sum, idx) => sum + (column[idx] || 0), 0);
+      const upper = rowsToCheck.reduce(
+        (sum, idx) => sum + (column[idx] || 0),
+        0
+      );
       const bonus = upper >= 60 ? 30 : 0;
       total = upper + bonus;
 
-      if (row === 0)
-        calculateSectionColumnTotal(playerIndex, col, row, "mid");
+      if (row === 0) calculateSectionColumnTotal(playerIndex, col, row, "mid");
     }
 
     if (section === "mid") {
@@ -258,11 +261,7 @@ export default function App() {
       <h1>🎲 Yamb</h1>
       <PlayerList players={players} currentPlayerIndex={currentPlayerIndex} />
 
-      <DiceRow
-        dice={dice}
-        rolls={rolls}
-        setDice={setDice}
-      />
+      <DiceRow dice={dice} rolls={rolls} setDice={setDice} />
 
       <Buttons
         rolls={rolls}

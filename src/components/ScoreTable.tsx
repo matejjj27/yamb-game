@@ -5,7 +5,7 @@ import { COLUMNS, ROWS } from "../utils/constants";
 const ScoreTable: React.FC<ScoreTableProps> = ({
   totals,
   scoreTable,
-  currentPlayerIndex,
+  viewedPlayerIndex,
   lockedStarCell,
   handleCellClick,
 }) => {
@@ -31,11 +31,11 @@ const ScoreTable: React.FC<ScoreTableProps> = ({
                     <td key={colIdx} className="total">
                       <strong>
                         {rowIdx === 6
-                          ? totals[currentPlayerIndex].top[colIdx]
+                          ? totals[viewedPlayerIndex].top[colIdx]
                           : rowIdx === 9
-                            ? totals[currentPlayerIndex].mid[colIdx]
+                            ? totals[viewedPlayerIndex].mid[colIdx]
                             : rowIdx === 14
-                              ? totals[currentPlayerIndex].bottom[colIdx]
+                              ? totals[viewedPlayerIndex].bottom[colIdx]
                               : ""}
                       </strong>
                     </td>
@@ -54,7 +54,7 @@ const ScoreTable: React.FC<ScoreTableProps> = ({
                         }}
                       >
                         {label !== ""
-                          ? (scoreTable[currentPlayerIndex][rowIdx][colIdx] ??
+                          ? (scoreTable[viewedPlayerIndex][rowIdx][colIdx] ??
                             "")
                           : ""}
                       </td>

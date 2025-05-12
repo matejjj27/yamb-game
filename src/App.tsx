@@ -12,6 +12,7 @@ import { useScoreTable } from "./hooks/useScoreTable";
 export default function App() {
   const [players] = useState(samplePlayers);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
+  const [viewedPlayerIndex, setViewedPlayerIndex] = useState(0);
 
   const { dice, setDice, rolls, rollDice, resetDice } = useDice();
   const {
@@ -30,6 +31,7 @@ export default function App() {
   const endTurn = () => {
     if (lockedStarCell && rolls > 0 && !hasWrittenThisTurn) return;
     setCurrentPlayerIndex((prev) => (prev + 1) % players.length);
+    setViewedPlayerIndex((prev) => (prev + 1) % players.length);
     resetDice();
     setHasWrittenThisTurn(false);
     setPreviousCell(null);
@@ -90,7 +92,11 @@ export default function App() {
         🌓
       </button>
       <h1>🎲 Yamb</h1>
-      <PlayerList players={players} currentPlayerIndex={currentPlayerIndex} />
+      <PlayerList
+        players={players}
+        currentPlayerIndex={viewedPlayerIndex}
+        setViewedPlayerIndex={setViewedPlayerIndex}
+      />
 
       <DiceRow
         dice={dice}
@@ -104,6 +110,7 @@ export default function App() {
         hasWrittenThisTurn={hasWrittenThisTurn}
         previousCell={previousCell}
         currentPlayerIndex={currentPlayerIndex}
+        viewedPlayerIndex={viewedPlayerIndex}
         rollDice={rollDice}
         endTurn={endTurn}
         undoWriting={undoWriting}
@@ -113,7 +120,7 @@ export default function App() {
       <ScoreTable
         totals={totals}
         scoreTable={scoreTable}
-        currentPlayerIndex={currentPlayerIndex}
+        viewedPlayerIndex={viewedPlayerIndex}
         lockedStarCell={lockedStarCell}
         handleCellClick={handleCellClick}
       />

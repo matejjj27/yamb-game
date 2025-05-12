@@ -7,17 +7,19 @@ const Buttons: React.FC<ButtonsProps> = ({
   hasWrittenThisTurn,
   previousCell,
   currentPlayerIndex,
+  viewedPlayerIndex,
   rollDice,
   endTurn,
   undoWriting,
   lockInCell,
 }) => {
+  const hasTurn = currentPlayerIndex === viewedPlayerIndex;
   return (
     <div className="buttons">
       <button
         className="primary"
         onClick={rollDice}
-        disabled={rolls >= MAX_ROLLS || hasWrittenThisTurn}
+        disabled={rolls >= MAX_ROLLS || hasWrittenThisTurn || !hasTurn}
       >
         Roll ({rolls}/{MAX_ROLLS})
       </button>
@@ -31,11 +33,12 @@ const Buttons: React.FC<ButtonsProps> = ({
       <button
         className="primary"
         onClick={() => undoWriting(currentPlayerIndex)}
-        disabled={!previousCell}
+        disabled={!previousCell || !hasTurn}
       >
         Undo
       </button>
       <button
+        disabled={!hasTurn}
         className="primary"
         onClick={() => {
           const cell = prompt("Lock in row number (1–14) for ⭐ column:");

@@ -20,6 +20,7 @@ export type Dice = {
 export interface PlayerListProps {
   players: Player[];
   currentPlayerIndex: number;
+  setViewedPlayerIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export interface LockedCell {
@@ -39,6 +40,7 @@ export interface ButtonsProps {
   hasWrittenThisTurn: boolean;
   previousCell: number[] | null;
   currentPlayerIndex: number;
+  viewedPlayerIndex: number;
   rollDice: () => void;
   endTurn: () => void;
   undoWriting: (playerIndex: number) => void;
@@ -48,7 +50,7 @@ export interface ButtonsProps {
 export interface ScoreTableProps {
   totals: PlayerTotals[];
   scoreTable: any[][][];
-  currentPlayerIndex: number;
+  viewedPlayerIndex: number;
   lockedStarCell: LockedCell | null;
   handleCellClick: (row: number, col: number) => void;
 }

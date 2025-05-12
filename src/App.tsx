@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./styles/App.css";
-import { v4 as uuidv4 } from "uuid";
-import { ROWS, COLUMNS } from "./utils/constants";
+import { ROWS, COLUMNS, samplePlayers } from "./utils/constants";
 import PlayerList from "./components/PlayerList";
 import DiceRow from "./components/DiceRow";
 import Buttons from "./components/Buttons";
@@ -11,10 +10,7 @@ import { useDice } from "./hooks/useDice";
 import { useScoreTable } from "./hooks/useScoreTable";
 
 export default function App() {
-  const [players] = useState([
-    { id: uuidv4(), name: "Player 1" },
-    { id: uuidv4(), name: "Player 2" },
-  ]);
+  const [players] = useState(samplePlayers);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
 
   const { dice, setDice, rolls, rollDice, resetDice } = useDice();

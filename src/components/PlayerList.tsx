@@ -8,12 +8,12 @@ const PlayerList: React.FC<PlayerListProps> = ({
   return (
     <div className="players">
       {players.map((player, i) => (
-        <div
+        <button
           key={player.id}
           className={`player ${i === currentPlayerIndex ? "active" : ""}`}
         >
           {player.name}
-        </div>
+        </button>
       ))}
     </div>
   );

@@ -7,6 +7,7 @@ const Buttons: React.FC<ButtonsProps> = ({
   hasWrittenThisTurn,
   lockedStarCell,
   previousCell,
+  currentPlayerIndex,
   rollDice,
   endTurn,
   undoWriting,
@@ -17,7 +18,7 @@ const Buttons: React.FC<ButtonsProps> = ({
       <button
         className="primary"
         onClick={rollDice}
-        disabled={rolls >= MAX_ROLLS}
+        disabled={rolls >= MAX_ROLLS || hasWrittenThisTurn}
       >
         Roll ({rolls}/{MAX_ROLLS})
       </button>
@@ -30,7 +31,7 @@ const Buttons: React.FC<ButtonsProps> = ({
       </button>
       <button
         className="primary"
-        onClick={undoWriting}
+        onClick={() => undoWriting(currentPlayerIndex)}
         disabled={!previousCell}
       >
         Undo

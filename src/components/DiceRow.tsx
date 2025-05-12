@@ -2,8 +2,14 @@ import React from "react";
 import { DiceRowProps } from "../utils/types";
 import { diceDots } from "../utils/constants";
 
-const DiceRow: React.FC<DiceRowProps> = ({ dice, rolls, setDice }) => {
+const DiceRow: React.FC<DiceRowProps> = ({
+  dice,
+  rolls,
+  hasWrittenThisTurn,
+  setDice,
+}) => {
   const handleDiceClick = (id: string) => {
+    if (hasWrittenThisTurn) return;
     if (rolls === 0) return;
     setDice((prev) =>
       prev.map((d) => (d.id === id ? { ...d, locked: !d.locked } : d))

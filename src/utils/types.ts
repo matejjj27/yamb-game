@@ -25,6 +25,7 @@ export interface PlayerListProps {
 export interface DiceRowProps {
   dice: Dice[];
   rolls: number;
+  hasWrittenThisTurn: boolean;
   setDice: React.Dispatch<React.SetStateAction<Dice[]>>;
 }
 
@@ -33,9 +34,10 @@ export interface ButtonsProps {
   hasWrittenThisTurn: boolean;
   lockedStarCell: number[] | null;
   previousCell: number[] | null;
+  currentPlayerIndex: number;
   rollDice: () => void;
   endTurn: () => void;
-  undoWriting: () => void;
+  undoWriting: (playerIndex: number) => void;
   lockInCell: React.Dispatch<React.SetStateAction<number[] | null>>;
 }
 

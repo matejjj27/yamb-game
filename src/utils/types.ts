@@ -22,6 +22,11 @@ export interface PlayerListProps {
   currentPlayerIndex: number;
 }
 
+export interface LockedCell {
+  rowId: number;
+  colId: number;
+}
+
 export interface DiceRowProps {
   dice: Dice[];
   rolls: number;
@@ -32,18 +37,18 @@ export interface DiceRowProps {
 export interface ButtonsProps {
   rolls: number;
   hasWrittenThisTurn: boolean;
-  lockedStarCell: number[] | null;
   previousCell: number[] | null;
   currentPlayerIndex: number;
   rollDice: () => void;
   endTurn: () => void;
   undoWriting: (playerIndex: number) => void;
-  lockInCell: React.Dispatch<React.SetStateAction<number[] | null>>;
+  lockInCell: React.Dispatch<React.SetStateAction<LockedCell | null>>;
 }
 
 export interface ScoreTableProps {
   totals: PlayerTotals[];
   scoreTable: any[][][];
   currentPlayerIndex: number;
+  lockedStarCell: LockedCell | null;
   handleCellClick: (row: number, col: number) => void;
 }

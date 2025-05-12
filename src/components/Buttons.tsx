@@ -5,7 +5,6 @@ import { MAX_ROLLS } from "../utils/constants";
 const Buttons: React.FC<ButtonsProps> = ({
   rolls,
   hasWrittenThisTurn,
-  lockedStarCell,
   previousCell,
   currentPlayerIndex,
   rollDice,
@@ -25,7 +24,7 @@ const Buttons: React.FC<ButtonsProps> = ({
       <button
         className="primary"
         onClick={endTurn}
-        disabled={!hasWrittenThisTurn && !lockedStarCell}
+        disabled={!hasWrittenThisTurn}
       >
         End Turn
       </button>
@@ -41,7 +40,7 @@ const Buttons: React.FC<ButtonsProps> = ({
         onClick={() => {
           const cell = prompt("Lock in row number (1–14) for ⭐ column:");
           if (cell && !hasWrittenThisTurn) {
-            lockInCell([+cell - 1, 3]);
+            lockInCell({ rowId: +cell - 1, colId: 3 });
           }
         }}
       >

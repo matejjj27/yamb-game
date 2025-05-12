@@ -6,6 +6,7 @@ const ScoreTable: React.FC<ScoreTableProps> = ({
   totals,
   scoreTable,
   currentPlayerIndex,
+  lockedStarCell,
   handleCellClick,
 }) => {
   return (
@@ -26,30 +27,39 @@ const ScoreTable: React.FC<ScoreTableProps> = ({
             <tr key={rowIdx} className={label === "" ? "empty-row" : ""}>
               <td className={label === "" ? "" : "no-border label"}>{label}</td>
               {label === ""
-                ? COLUMNS.map((_, i) => (
-                    <td key={i} className="total">
+                ? COLUMNS.map((_, colIdx) => (
+                    <td key={colIdx} className="total">
                       <strong>
                         {rowIdx === 6
-                          ? totals[currentPlayerIndex].top[i]
+                          ? totals[currentPlayerIndex].top[colIdx]
                           : rowIdx === 9
-                            ? totals[currentPlayerIndex].mid[i]
+                            ? totals[currentPlayerIndex].mid[colIdx]
                             : rowIdx === 14
-                              ? totals[currentPlayerIndex].bottom[i]
+                              ? totals[currentPlayerIndex].bottom[colIdx]
                               : ""}
                       </strong>
                     </td>
                   ))
-                : COLUMNS.map((_, colIdx) => (
-                    <td
-                      key={colIdx}
-                      className={`clickable ${label === "" ? "no-border" : ""}`}
-                      onClick={() => handleCellClick(rowIdx, colIdx)}
-                    >
-                      {label !== ""
-                        ? (scoreTable[currentPlayerIndex][rowIdx][colIdx] ?? "")
-                        : ""}
-                    </td>
-                  ))}
+                : COLUMNS.map((_, colIdx) => {
+                    const isLocked =
+                      lockedStarCell?.rowId === rowIdx &&
+                      lockedStarCell?.colId === colIdx;
+                    return (
+                      <td
+                        key={colIdx}
+                        className={`clickable ${label === "" ? "no-border" : ""}`}
+                        onClick={() => handleCellClick(rowIdx, colIdx)}
+                        style={{
+                          backgroundColor: isLocked ? "#8BC34A" : "",
+                        }}
+                      >
+                        {label !== ""
+                          ? (scoreTable[currentPlayerIndex][rowIdx][colIdx] ??
+                            "")
+                          : ""}
+                      </td>
+                    );
+                  })}
             </tr>
           ))}
         </tbody>

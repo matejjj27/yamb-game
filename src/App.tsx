@@ -44,19 +44,19 @@ export default function App() {
     if (rolls === 0) return;
     if (ROWS[row] === "") return;
     if (hasWrittenThisTurn) return;
-
+    if (
+      lockedStarCell &&
+      (lockedStarCell?.rowId !== row || lockedStarCell?.colId !== col)
+    )
+      return;
     const rolledAllDice = dice.every((d) => !d.locked);
-
     if (col === 3) {
       const canWrite =
-        (lockedStarCell?.[0] === row && lockedStarCell?.[1] === col) ||
-        (rolls > 0 && rolledAllDice && !lockedStarCell);
+        (lockedStarCell?.rowId === row && lockedStarCell?.colId === col) ||
+        (rolledAllDice && !lockedStarCell);
 
       if (!canWrite) return;
-    } else if (!isCellEditable(row, col)) {
-      return;
-    }
-
+    } else if (!isCellEditable(row, col)) return;
     setPreviousCell([row, col]);
     calculateAndFill(dice, currentPlayerIndex, row, col);
     setHasWrittenThisTurn(true);
@@ -106,7 +106,6 @@ export default function App() {
       <Buttons
         rolls={rolls}
         hasWrittenThisTurn={hasWrittenThisTurn}
-        lockedStarCell={lockedStarCell}
         previousCell={previousCell}
         currentPlayerIndex={currentPlayerIndex}
         rollDice={rollDice}
@@ -119,6 +118,7 @@ export default function App() {
         totals={totals}
         scoreTable={scoreTable}
         currentPlayerIndex={currentPlayerIndex}
+        lockedStarCell={lockedStarCell}
         handleCellClick={handleCellClick}
       />
 

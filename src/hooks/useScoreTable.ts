@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ROWS, COLUMNS } from "../utils/constants";
-import { Dice, PlayerTotals, Section } from "../utils/types";
+import { Dice, LockedCell, PlayerTotals, Section } from "../utils/types";
 
 export function useScoreTable(players: { id: string; name: string }[]) {
   const [scoreTable, setScoreTable] = useState(
@@ -16,7 +16,7 @@ export function useScoreTable(players: { id: string; name: string }[]) {
 
   const [previousCell, setPreviousCell] = useState<number[] | null>(null);
   const [hasWrittenThisTurn, setHasWrittenThisTurn] = useState(false);
-  const [lockedStarCell, setLockedStarCell] = useState<number[] | null>(null);
+  const [lockedStarCell, setLockedStarCell] = useState<LockedCell | null>(null);
 
   const calculateAndFill = (
     dice: Dice[],

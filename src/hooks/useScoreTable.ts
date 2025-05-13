@@ -16,6 +16,7 @@ export function useScoreTable(players: { id: string; name: string }[]) {
 
   const [previousCell, setPreviousCell] = useState<number[] | null>(null);
   const [hasWrittenThisTurn, setHasWrittenThisTurn] = useState(false);
+  const [isStarLockClicked, setIsStarLockClicked] = useState<boolean>(false);
   const [lockedStarCell, setLockedStarCell] = useState<LockedCell | null>(null);
 
   const calculateAndFill = (
@@ -177,6 +178,8 @@ export function useScoreTable(players: { id: string; name: string }[]) {
     setPreviousCell,
     hasWrittenThisTurn,
     setHasWrittenThisTurn,
+    isStarLockClicked,
+    setIsStarLockClicked,
     lockedStarCell,
     setLockedStarCell,
     calculateAndFill,

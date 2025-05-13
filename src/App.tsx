@@ -22,6 +22,8 @@ export default function App() {
     setPreviousCell,
     hasWrittenThisTurn,
     setHasWrittenThisTurn,
+    isStarLockClicked,
+    setIsStarLockClicked,
     lockedStarCell,
     setLockedStarCell,
     calculateAndFill,
@@ -39,6 +41,7 @@ export default function App() {
   };
 
   const handleCellClick = (row: number, col: number) => {
+    setIsStarLockClicked(false);
     if (rolls === 0) return;
     if (ROWS[row] === "") return;
     if (hasWrittenThisTurn) return;
@@ -48,6 +51,12 @@ export default function App() {
     )
       return;
     const rolledAllDice = dice.every((d) => !d.locked);
+    if (
+      isStarLockClicked &&
+      col === 3 &&
+      !scoreTable[currentPlayerIndex][row][col]
+    )
+      setLockedStarCell({ rowId: row, colId: col });
     if (col === 3) {
       const canWrite =
         (lockedStarCell?.rowId === row && lockedStarCell?.colId === col) ||
@@ -55,9 +64,11 @@ export default function App() {
 
       if (!canWrite) return;
     } else if (!isCellEditable(row, col)) return;
-    setPreviousCell([row, col]);
-    calculateAndFill(dice, currentPlayerIndex, row, col);
-    setHasWrittenThisTurn(true);
+    if (!isStarLockClicked) {
+      setPreviousCell([row, col]);
+      calculateAndFill(dice, currentPlayerIndex, row, col);
+      setHasWrittenThisTurn(true);
+    }
   };
 
   const isCellEditable = (row: number, col: number) => {
@@ -92,6 +103,7 @@ export default function App() {
         🌓
       </button>
       <h1>🎲 Yamb</h1>
+
       <PlayerList
         players={players}
         currentPlayerIndex={viewedPlayerIndex}
@@ -111,6 +123,9 @@ export default function App() {
         previousCell={previousCell}
         currentPlayerIndex={currentPlayerIndex}
         viewedPlayerIndex={viewedPlayerIndex}
+        lockedStarCell={lockedStarCell}
+        isStarLockClicked={isStarLockClicked}
+        setIsStarLockClicked={setIsStarLockClicked}
         rollDice={rollDice}
         endTurn={endTurn}
         undoWriting={undoWriting}

@@ -41,6 +41,9 @@ export interface ButtonsProps {
   previousCell: number[] | null;
   currentPlayerIndex: number;
   viewedPlayerIndex: number;
+  lockedStarCell: LockedCell | null;
+  isStarLockClicked: boolean;
+  setIsStarLockClicked: React.Dispatch<React.SetStateAction<boolean>>;
   rollDice: () => void;
   endTurn: () => void;
   undoWriting: (playerIndex: number) => void;

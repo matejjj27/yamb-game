@@ -8,12 +8,20 @@ const Buttons: React.FC<ButtonsProps> = ({
   previousCell,
   currentPlayerIndex,
   viewedPlayerIndex,
+  lockedStarCell,
+  isStarLockClicked,
+  setIsStarLockClicked,
   rollDice,
   endTurn,
   undoWriting,
   lockInCell,
 }) => {
   const hasTurn = currentPlayerIndex === viewedPlayerIndex;
+  const isLockButtonDisabled =
+    !hasTurn ||
+    (isStarLockClicked && !lockedStarCell) ||
+    rolls === 0 ||
+    rolls === 3;
   return (
     <div className="buttons">
       <button
@@ -38,16 +46,20 @@ const Buttons: React.FC<ButtonsProps> = ({
         Undo
       </button>
       <button
-        disabled={!hasTurn}
+        disabled={isLockButtonDisabled}
         className="primary"
         onClick={() => {
-          const cell = prompt("Lock in row number (1–14) for ⭐ column:");
-          if (cell && !hasWrittenThisTurn) {
-            lockInCell({ rowId: +cell - 1, colId: 3 });
-          }
+          if (lockedStarCell) {
+            setIsStarLockClicked(false);
+            lockInCell(null);
+          } else setIsStarLockClicked(true);
         }}
       >
-        ⭐ Lock
+        {!isStarLockClicked && !lockedStarCell
+          ? "⭐ Lock"
+          : isStarLockClicked && !lockedStarCell
+            ? "Select"
+            : "Undo Lock"}
       </button>
     </div>
   );

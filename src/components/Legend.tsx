@@ -14,18 +14,26 @@ const Legend: React.FC = () => {
           <ul>
             <li>🎲 Each turn consists of up to 3 rolls.</li>
             <li>
-              📝 After rolling, the player must fill in one cell in the column
-              that's currently editable.
+              📝 After rolling, the player must fill in one cell in the table.
             </li>
             <li>
               ⭐ The Special column allows writing in it only when the player
               rolled all 5 dice on the previous roll or after locking in a cell
-              using the lock button also after rolling all 5 dice at once.
+              using the lock in button and then selecting the cell he wants to
+              lock which can only be done after rolling all 5 dice at once on
+              the previous roll.
             </li>
             <li>⬇️ Column must be filled top to bottom, no skipping.</li>
             <li>⬆️ Column must be filled bottom to top.</li>
             <li>⬇️⬆️ (Free column) can be filled in any order.</li>
-            <li>Bonus of 30 points if the upper section total reaches 60+.</li>
+            <li>
+              Bonus of 30 points is awarded if the upper section total reaches
+              60+.
+            </li>
+            <li>
+              Middle section is calculated with this Formula: (MAX-MIN)*(ammount
+              of 1s in that column)
+            </li>
             <li>Game ends when all players fill every cell.</li>
             <li>🏆 Player with the highest total score wins.</li>
           </ul>
@@ -39,10 +47,14 @@ const Legend: React.FC = () => {
           <li>⬆️: Bottom to top</li>
           <li>⬇️⬆️: Free column</li>
           <li>⭐: Special column</li>
-          <li>S: Straight</li>
-          <li>F: Full House</li>
-          <li>P: Poker</li>
-          <li>Y: Yamb</li>
+
+          <li>MAX: A high dice total (e.g '55645 = 25')</li>
+          <li>MIN: A low dice total (e.g '12212 = 8')</li>
+
+          <li>S: Straight (e.g '12345')</li>
+          <li>F: Full House (e.g '22233')</li>
+          <li>P: Poker (e.g '6666')</li>
+          <li>Y: Yamb (e.g '55555')</li>
         </ul>
       </div>
     </section>

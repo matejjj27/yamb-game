@@ -4,6 +4,7 @@ import { MAX_ROLLS } from "../utils/constants";
 
 const Buttons: React.FC<ButtonsProps> = ({
   rolls,
+  lastRollCount,
   hasWrittenThisTurn,
   previousCell,
   currentPlayerIndex,
@@ -21,7 +22,9 @@ const Buttons: React.FC<ButtonsProps> = ({
     !hasTurn ||
     (isStarLockClicked && !lockedStarCell) ||
     rolls === 0 ||
-    rolls === 3;
+    rolls === 3 ||
+    lastRollCount !== 5;
+
   return (
     <div className="buttons">
       <button

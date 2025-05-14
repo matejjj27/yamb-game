@@ -6,6 +6,7 @@ import { MAX_ROLLS } from "../utils/constants";
 export function useDice() {
   const [dice, setDice] = useState<Dice[]>(generateDice());
   const [rolls, setRolls] = useState(0);
+  const [lastRollCount, setLastRollCount] = useState(5);
 
   const rollDice = () => {
     if (rolls >= MAX_ROLLS) return;
@@ -17,6 +18,8 @@ export function useDice() {
           d.locked ? d : { ...d, value: Math.ceil(Math.random() * 6) }
         )
       );
+      const rolledDice = dice.filter((die) => !die.locked);
+      setLastRollCount(rolledDice.length);
     }
     setRolls((r) => r + 1);
   };
@@ -30,6 +33,7 @@ export function useDice() {
     dice,
     setDice,
     rolls,
+    lastRollCount,
     rollDice,
     resetDice,
   };

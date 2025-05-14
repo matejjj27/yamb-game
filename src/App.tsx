@@ -14,7 +14,8 @@ export default function App() {
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
   const [viewedPlayerIndex, setViewedPlayerIndex] = useState(0);
 
-  const { dice, setDice, rolls, rollDice, resetDice } = useDice();
+  const { dice, setDice, rolls, lastRollCount, rollDice, resetDice } =
+    useDice();
   const {
     scoreTable,
     totals,
@@ -50,7 +51,6 @@ export default function App() {
       (lockedStarCell?.rowId !== row || lockedStarCell?.colId !== col)
     )
       return;
-    const rolledAllDice = dice.every((d) => !d.locked);
     if (
       isStarLockClicked &&
       col === 3 &&
@@ -60,7 +60,7 @@ export default function App() {
     if (col === 3) {
       const canWrite =
         (lockedStarCell?.rowId === row && lockedStarCell?.colId === col) ||
-        (rolledAllDice && !lockedStarCell);
+        (lastRollCount === 5 && !lockedStarCell);
 
       if (!canWrite) return;
     } else if (!isCellEditable(row, col)) return;
@@ -119,6 +119,7 @@ export default function App() {
 
       <Buttons
         rolls={rolls}
+        lastRollCount={lastRollCount}
         hasWrittenThisTurn={hasWrittenThisTurn}
         previousCell={previousCell}
         currentPlayerIndex={currentPlayerIndex}

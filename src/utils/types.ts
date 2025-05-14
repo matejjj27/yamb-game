@@ -37,6 +37,7 @@ export interface DiceRowProps {
 
 export interface ButtonsProps {
   rolls: number;
+  lastRollCount: number;
   hasWrittenThisTurn: boolean;
   previousCell: number[] | null;
   currentPlayerIndex: number;

@@ -1,12 +1,6 @@
-import { v4 as uuidv4 } from "uuid";
-
 export const DICE_COUNT = 5;
 export const MAX_ROLLS = 3;
 export const COLUMNS = ["⬇️", "⬇️⬆️", "⬆️", "⭐"];
-export const samplePlayers = [
-  { id: uuidv4(), name: "Player 1" },
-  { id: uuidv4(), name: "Player 2" },
-];
 export const ROWS = [
   "1",
   "2",

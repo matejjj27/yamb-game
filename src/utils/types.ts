@@ -35,6 +35,14 @@ export interface DiceRowProps {
   setDice: React.Dispatch<React.SetStateAction<Dice[]>>;
 }
 
+export interface LandingPageProps {
+  onStartGame: (playerNames: string[]) => void;
+}
+
+export interface GameProps {
+  newPlayers: Player[];
+}
+
 export interface ButtonsProps {
   rolls: number;
   lastRollCount: number;

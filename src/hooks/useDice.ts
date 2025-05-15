@@ -34,6 +34,7 @@ export function useDice() {
     setDice,
     rolls,
     lastRollCount,
+    setLastRollCount,
     rollDice,
     resetDice,
   };

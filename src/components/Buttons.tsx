@@ -25,12 +25,15 @@ const Buttons: React.FC<ButtonsProps> = ({
     rolls === 3 ||
     lastRollCount !== 5;
 
+  const isRollButtonDisabled =
+    rolls >= MAX_ROLLS || hasWrittenThisTurn || !hasTurn || isStarLockClicked;
+
   return (
     <div className="buttons">
       <button
         className="primary"
         onClick={rollDice}
-        disabled={rolls >= MAX_ROLLS || hasWrittenThisTurn || !hasTurn}
+        disabled={isRollButtonDisabled}
       >
         Roll ({rolls}/{MAX_ROLLS})
       </button>

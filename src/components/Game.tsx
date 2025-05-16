@@ -91,7 +91,7 @@ const Game: React.FC<GameProps> = ({ newPlayers }) => {
     } else if (COLUMNS[col] === "⬆️") {
       const reversed = [...column].reverse();
       const firstEmpty = reversed.findIndex(
-        (val, id) => val === null && id !== 4 && id !== 7 && id !== 0
+        (val, id) => val === null && id !== 5 && id !== 8 && id !== 0
       );
 
       return ROWS.length - 1 - firstEmpty === row;

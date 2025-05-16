@@ -15,7 +15,7 @@ export function useScoreTable(players: { id: string; name: string }[]) {
   );
 
   const [previousCell, setPreviousCell] = useState<number[] | null>(null);
-  const [hasWrittenThisTurn, setHasWrittenThisTurn] = useState(false);
+  const [hasWrittenThisTurn, setHasWrittenThisTurn] = useState<boolean>(false);
   const [isStarLockClicked, setIsStarLockClicked] = useState<boolean>(false);
   const [lockedStarCell, setLockedStarCell] = useState<LockedCell | null>(null);
 
@@ -44,7 +44,9 @@ export function useScoreTable(players: { id: string; name: string }[]) {
       );
       const has3 = Object.values(counts).includes(3);
       const has2 = Object.values(counts).includes(2);
-      score = has3 && has2 ? values.reduce((a, b) => a + b, 0) + 30 : 0;
+      const has5 = Object.values(counts).includes(5);
+      score =
+        (has3 && has2) || has5 ? values.reduce((a, b) => a + b, 0) + 30 : 0;
     } else if (row === 12) {
       const counts = values.reduce(
         (acc: Record<number, number>, val: number) => (
@@ -155,7 +157,7 @@ export function useScoreTable(players: { id: string; name: string }[]) {
         if (row >= 10 && row <= 14) bottom += val;
       }
 
-      newTotals.top[col] = top;
+      newTotals.top[col] = top <= 60 ? top : top + 30;
       newTotals.mid[col] =
         max !== null && min !== null && firstRowVal !== null
           ? (max - min) * firstRowVal

@@ -19,6 +19,7 @@ const Game: React.FC<GameProps> = ({ newPlayers }) => {
     setDice,
     rolls,
     lastRollCount,
+    isRolling,
     setLastRollCount,
     rollDice,
     resetDice,
@@ -121,6 +122,7 @@ const Game: React.FC<GameProps> = ({ newPlayers }) => {
         dice={dice}
         rolls={rolls}
         hasWrittenThisTurn={hasWrittenThisTurn}
+        isRolling={isRolling}
         setDice={setDice}
       />
 

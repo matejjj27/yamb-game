@@ -74,6 +74,11 @@ body.dark {
   padding: 5px;
   position: relative;
   cursor: pointer;
+  transition: transform 0.5s;
+}
+
+.dice-rolling {
+  animation: roll 0.3s ease;
 }
 
 .die.locked {
@@ -323,22 +328,17 @@ body.dark .start-button:hover {
 }
 
 .player-inputs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+  display: flex;
   margin-top: 1rem;
-  width: 100%;
+  flex-direction: column;
 }
 
 .input-wrapper {
   display: flex;
-  flex-direction: column;
 }
 
 .form-label {
   font-weight: 500;
-  margin-bottom: 0.3rem;
-  display: block;
 }
 
 .landing-title {
@@ -356,5 +356,27 @@ body.dark .start-button:hover {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes roll {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  25% {
+    transform: rotate(180deg) scale(1.1);
+  }
+
+  50% {
+    transform: rotate(360deg) scale(1);
+  }
+
+  75% {
+    transform: rotate(540deg) scale(1.1);
+  }
+
+  100% {
+    transform: rotate(720deg) scale(1);
   }
 }

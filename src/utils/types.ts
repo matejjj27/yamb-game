@@ -32,6 +32,7 @@ export interface DiceRowProps {
   dice: Dice[];
   rolls: number;
   hasWrittenThisTurn: boolean;
+  isRolling: boolean;
   setDice: React.Dispatch<React.SetStateAction<Dice[]>>;
 }
 

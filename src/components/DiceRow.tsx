@@ -6,6 +6,7 @@ const DiceRow: React.FC<DiceRowProps> = ({
   dice,
   rolls,
   hasWrittenThisTurn,
+  isRolling,
   setDice,
 }) => {
   const handleDiceClick = (id: string) => {
@@ -20,7 +21,7 @@ const DiceRow: React.FC<DiceRowProps> = ({
       {dice.map((d) => (
         <div
           key={d.id}
-          className={`die ${d.locked ? "locked" : ""}`}
+          className={`die ${isRolling && !d.locked ? "dice-rolling" : ""} ${d.locked ? "locked" : ""}`}
           onClick={() => handleDiceClick(d.id)}
         >
           {[0, 1, 2].map((r) =>

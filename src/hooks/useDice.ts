@@ -7,7 +7,7 @@ export function useDice() {
   const [dice, setDice] = useState<Dice[]>(generateDice());
   const [rolls, setRolls] = useState(0);
   const [lastRollCount, setLastRollCount] = useState(5);
-  const [isRolling, setIsRolling] = useState(true);
+  const [isRolling, setIsRolling] = useState(false);
 
   const rollDice = () => {
     if (rolls >= MAX_ROLLS) return;
@@ -42,10 +42,6 @@ export function useDice() {
   const resetDice = () => {
     setDice(generateDice());
     setRolls(0);
-    setIsRolling(true);
-    setTimeout(() => {
-      setIsRolling(false);
-    }, 300);
   };
 
   return {

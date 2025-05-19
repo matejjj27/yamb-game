@@ -55,6 +55,7 @@ body.dark {
   font-weight: bold;
 }
 
+
 .dice-row {
   display: flex;
   justify-content: center;
@@ -71,10 +72,36 @@ body.dark {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  padding: 5px;
+  padding: 6px;
   position: relative;
   cursor: pointer;
   transition: transform 0.5s;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 60%;
+  background: transparent;
+  justify-self: center;
+  align-self: center;
+}
+
+@media (max-width: 500px) {
+  .die {
+    width: 30px;
+    height: 30px;
+    padding: 4px;
+  }
+
+  .dot {
+    width: 7px;
+    height: 7px;
+  }
+
+  .dice-row {
+    gap: 0.6rem;
+  }
 }
 
 .dice-rolling {
@@ -86,14 +113,6 @@ body.dark {
   border-color: red;
 }
 
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 60%;
-  background: transparent;
-  justify-self: center;
-  align-self: center;
-}
 
 .dot.active {
   background: var(--text);
@@ -247,7 +266,7 @@ body.dark {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 2rem;
+  padding-top: 4rem;
 }
 
 .landing-title {

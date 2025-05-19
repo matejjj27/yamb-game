@@ -89,9 +89,9 @@ body.dark {
 
 @media (max-width: 500px) {
   .die {
-    width: 30px;
-    height: 30px;
-    padding: 4px;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
   }
 
   .dot {
@@ -100,7 +100,12 @@ body.dark {
   }
 
   .dice-row {
-    gap: 0.6rem;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+  }
+
+  */ .score-table {
+    font-size: 0.9rem;
   }
 }
 
@@ -199,21 +204,6 @@ body.dark {
   margin-inline: auto;
 }
 
-@media (max-width: 600px) {
-  .dice-row {
-    flex-wrap: wrap;
-  }
-
-  .die {
-    width: 45px;
-    height: 45px;
-  }
-
-  .score-table {
-    font-size: 0.8rem;
-  }
-}
-
 .info-panel {
   margin: 1rem auto;
   max-width: 600px;
@@ -266,7 +256,7 @@ body.dark {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 4rem;
+  padding-top: 3rem;
 }
 
 .landing-title {

@@ -41,6 +41,7 @@ body.dark {
   justify-content: center;
   gap: 1rem;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
 .player {
@@ -128,6 +129,7 @@ body.dark {
   justify-content: center;
   gap: 1rem;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
 .primary {

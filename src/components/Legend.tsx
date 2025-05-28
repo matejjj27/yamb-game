@@ -48,8 +48,8 @@ const Legend: React.FC = () => {
           <li>⬇️⬆️: Free column</li>
           <li>⭐: Special column</li>
 
-          <li>MAX: A high dice total (e.g '55645 = 25')</li>
-          <li>MIN: A low dice total (e.g '12212 = 8')</li>
+          <li>Max: A high dice total (e.g '55645 = 25')</li>
+          <li>Min: A low dice total (e.g '12212 = 8')</li>
 
           <li>S: Straight (e.g '12345')</li>
           <li>F: Full House (e.g '22233')</li>

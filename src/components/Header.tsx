@@ -23,7 +23,7 @@ const Header: React.FC = () => {
       />
 
       {gameStarted && (
-        <button onClick={() => setModalOpen(true)} className="new-game-btn">
+        <button className="new-game-btn" onClick={() => setModalOpen(true)}>
           New Game
         </button>
       )}

@@ -10,6 +10,7 @@ body {
   --bg: #ffffff;
   --text: #000000;
   --primary: #4caf50;
+  --primary-dark: #388e3c;
   --secondary: #f1f1f1;
 }
 
@@ -17,6 +18,7 @@ body.dark {
   --bg: #121212;
   --text: #ffffff;
   --primary: #bb86fc;
+  --primary-dark: #9c5dfc;
   --secondary: #1f1f1f;
 }
 
@@ -29,7 +31,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
   position: relative;
   z-index: 1;
   background-color: transparent;
@@ -150,6 +152,10 @@ header {
   font-size: 0.9rem;
   cursor: pointer;
   border-radius: 5px;
+}
+
+body.dark .primary:hover:not(:disabled) {
+  background: var(--primary-dark);
 }
 
 .primary:disabled {
@@ -457,8 +463,8 @@ body.dark .modal .btn.cancel {
 
 .new-game-btn {
   margin: 1rem 0 0 1rem;
-  background-color: #007bff;
-  color: white;
+  background-color: var(--primary);
+  color: black;
   border: none;
   padding: 8px 14px;
   font-size: 14px;
@@ -468,6 +474,15 @@ body.dark .modal .btn.cancel {
   transition: background-color 0.3s ease;
 }
 
+body.dark .new-game-btn {
+  background-color: var(--primary);
+  color: white;
+}
+
+body.dark .new-game-btn:hover {
+  background-color: var(--primary-dark);
+}
+
 .new-game-btn:hover {
-  background-color: #0056b3;
+  background-color: var(--primary-dark);
 }

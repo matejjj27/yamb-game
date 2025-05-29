@@ -25,6 +25,16 @@ body.dark {
   text-align: center;
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 4rem;
+  position: relative;
+  z-index: 1;
+  background-color: transparent;
+}
+
 .toggle-darkmode {
   position: absolute;
   top: 1rem;

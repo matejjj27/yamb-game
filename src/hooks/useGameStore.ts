@@ -10,7 +10,6 @@ type GameState = {
   lockedDice: boolean[];
   gameStarted: boolean;
   setGameStarted: (gameStarted: boolean) => void;
-  // Add other state fields here...
   setPlayers: (players: Player[]) => void;
   setCurrentPlayer: (index: number) => void;
   setRollCount: (count: number) => void;
@@ -45,7 +44,7 @@ export const useGameStore = create<GameState>()(
         }),
     }),
     {
-      name: "yamb-game-storage", // key in localStorage
+      name: "yamb-game-data",
     }
   )
 );

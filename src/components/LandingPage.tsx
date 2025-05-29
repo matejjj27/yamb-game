@@ -1,10 +1,21 @@
 import React, { useState } from "react";
-import { LandingPageProps } from "../utils/types";
+import { useGameStore } from "../hooks/useGameStore";
 
-const LandingPage: React.FC<LandingPageProps> = ({ onStartGame }) => {
+const LandingPage: React.FC = () => {
   const [numPlayers, setNumPlayers] = useState(2);
   const [playerNames, setPlayerNames] = useState(["", ""]);
   const [error, setError] = useState("");
+  const setGameStarted = useGameStore((state) => state.setGameStarted);
+  const setNewPlayers = useGameStore((state) => state.setPlayers);
+
+  const startGame = (names: string[]) => {
+    const players = names.map((name) => ({
+      id: crypto.randomUUID(),
+      name,
+    }));
+    setNewPlayers(players);
+    setGameStarted(true);
+  };
 
   const handleNumPlayersChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const count = parseInt(e.target.value, 10);
@@ -22,7 +33,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartGame }) => {
 
   const handleStartGame = () => {
     if (playerNames.every((name) => name.trim() !== "")) {
-      onStartGame(playerNames);
+      startGame(playerNames);
     } else {
       setError("⚠️ Please enter all player names.");
     }

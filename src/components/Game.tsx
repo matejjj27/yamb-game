@@ -7,12 +7,12 @@ import DiceRow from "./DiceRow";
 import Legend from "./Legend";
 import PlayerList from "./PlayerList";
 import ScoreTable from "./ScoreTable";
-import { GameProps, Player } from "../utils/types";
+import { useGameStore } from "../hooks/useGameStore";
 
-const Game: React.FC<GameProps> = ({ newPlayers }) => {
-  const [players] = useState<Player[]>(newPlayers);
+const Game: React.FC = () => {
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState<number>(0);
   const [viewedPlayerIndex, setViewedPlayerIndex] = useState<number>(0);
+  const players = useGameStore((state) => state.players);
 
   const {
     dice,

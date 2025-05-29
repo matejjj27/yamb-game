@@ -29,7 +29,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 4rem;
+  padding-bottom: 2rem;
   position: relative;
   z-index: 1;
   background-color: transparent;
@@ -46,7 +46,6 @@ header {
 }
 
 .players {
-  cursor: pointer;
   display: flex;
   justify-content: center;
   gap: 1rem;
@@ -55,6 +54,7 @@ header {
 }
 
 .player {
+  cursor: pointer;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   background-color: var(--secondary);
@@ -432,8 +432,8 @@ body.dark .modal .btn.cancel {
 .modal-buttons {
   margin-top: 20px;
   display: flex;
-  justify-content: space-between;
-  gap: 12px;
+  justify-content: center;
+  gap: 1rem
 }
 
 .modal .btn {
@@ -456,9 +456,7 @@ body.dark .modal .btn.cancel {
 }
 
 .new-game-btn {
-  position: absolute;
-  top: 12px;
-  left: 12px;
+  margin: 1rem 0 0 1rem;
   background-color: #007bff;
   color: white;
   border: none;

@@ -26,7 +26,7 @@ const ConfirmResetModal: React.FC<ConfirmResetModalProps> = ({
             Cancel
           </button>
           <button className="btn confirm" onClick={onConfirm}>
-            Start New Game
+            Start
           </button>
         </div>
       </div>

@@ -4,9 +4,7 @@ import { useGameStore } from "../hooks/useGameStore";
 
 const Header: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const resetGame = useGameStore((state) => state.resetGame);
-  const gameStarted = useGameStore((state) => state.gameStarted);
-  const setGameStarted = useGameStore((state) => state.setGameStarted);
+  const { resetGame, gameStarted, setGameStarted } = useGameStore();
 
   const handleConfirm = () => {
     resetGame();

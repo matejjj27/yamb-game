@@ -5,15 +5,14 @@ const LandingPage: React.FC = () => {
   const [numPlayers, setNumPlayers] = useState(2);
   const [playerNames, setPlayerNames] = useState(["", ""]);
   const [error, setError] = useState("");
-  const setGameStarted = useGameStore((state) => state.setGameStarted);
-  const setNewPlayers = useGameStore((state) => state.setPlayers);
+  const { setPlayers, setGameStarted } = useGameStore();
 
   const startGame = (names: string[]) => {
     const players = names.map((name) => ({
       id: crypto.randomUUID(),
       name,
     }));
-    setNewPlayers(players);
+    setPlayers(players);
     setGameStarted(true);
   };
 

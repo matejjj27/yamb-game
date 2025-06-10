@@ -12,7 +12,7 @@ import { useGameStore } from "../hooks/useGameStore";
 const Game: React.FC = () => {
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState<number>(0);
   const [viewedPlayerIndex, setViewedPlayerIndex] = useState<number>(0);
-  const players = useGameStore((state) => state.players);
+  const { players } = useGameStore();
 
   const {
     dice,

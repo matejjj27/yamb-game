@@ -5,7 +5,7 @@ import { useGameStore } from "./hooks/useGameStore";
 import Header from "./components/Header";
 
 export default function App() {
-  const gameStarted = useGameStore((state) => state.gameStarted);
+  const { gameStarted } = useGameStore();
 
   return (
     <div className="app-container">

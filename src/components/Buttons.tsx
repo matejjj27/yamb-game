@@ -3,7 +3,7 @@ import { ButtonsProps } from "../utils/types";
 import { MAX_ROLLS } from "../utils/constants";
 
 const Buttons: React.FC<ButtonsProps> = ({
-  rolls,
+  rollCount,
   lastRollCount,
   hasWrittenThisTurn,
   previousCell,
@@ -21,12 +21,12 @@ const Buttons: React.FC<ButtonsProps> = ({
   const isLockButtonDisabled =
     !hasTurn ||
     (isStarLockClicked && !lockedStarCell) ||
-    rolls === 0 ||
-    rolls === 3 ||
+    rollCount === 0 ||
+    rollCount === 3 ||
     lastRollCount !== 5;
 
   const isRollButtonDisabled =
-    rolls >= MAX_ROLLS || hasWrittenThisTurn || !hasTurn || isStarLockClicked;
+    rollCount >= MAX_ROLLS || hasWrittenThisTurn || !hasTurn || isStarLockClicked;
 
   return (
     <div className="buttons">
@@ -35,7 +35,7 @@ const Buttons: React.FC<ButtonsProps> = ({
         onClick={rollDice}
         disabled={isRollButtonDisabled}
       >
-        Roll ({rolls}/{MAX_ROLLS})
+        Roll ({rollCount}/{MAX_ROLLS})
       </button>
       <button
         className="primary"

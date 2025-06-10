@@ -30,10 +30,10 @@ export interface LockedCell {
 
 export interface DiceRowProps {
   dice: Dice[];
-  rolls: number;
+  rollCount: number;
   hasWrittenThisTurn: boolean;
   isRolling: boolean;
-  setDice: React.Dispatch<React.SetStateAction<Dice[]>>;
+  setDice: (dice: Dice[]) => void;
 }
 
 export interface LandingPageProps {
@@ -45,7 +45,7 @@ export interface GameProps {
 }
 
 export interface ButtonsProps {
-  rolls: number;
+  rollCount: number;
   lastRollCount: number;
   hasWrittenThisTurn: boolean;
   previousCell: number[] | null;

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useDice } from "../hooks/useDice";
 import { useScoreTable } from "../hooks/useScoreTable";
 import { ROWS, COLUMNS } from "../utils/constants";
 import Buttons from "./Buttons";
@@ -8,6 +7,7 @@ import Legend from "./Legend";
 import PlayerList from "./PlayerList";
 import ScoreTable from "./ScoreTable";
 import { useGameStore } from "../hooks/useGameStore";
+import { useDiceStore } from "../hooks/UseDiceStore";
 
 const Game: React.FC = () => {
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState<number>(0);
@@ -17,13 +17,14 @@ const Game: React.FC = () => {
   const {
     dice,
     setDice,
-    rolls,
+    rollCount,
     lastRollCount,
     isRolling,
-    setLastRollCount,
     rollDice,
     resetDice,
-  } = useDice();
+    setLastRollCount,
+  } = useDiceStore();
+
   const {
     scoreTable,
     totals,
@@ -40,7 +41,7 @@ const Game: React.FC = () => {
   } = useScoreTable(players);
 
   const endTurn = () => {
-    if (lockedStarCell && rolls > 0 && !hasWrittenThisTurn) return;
+    if (lockedStarCell && rollCount > 0 && !hasWrittenThisTurn) return;
     setCurrentPlayerIndex((prev) => (prev + 1) % players.length);
     setViewedPlayerIndex((prev) => (prev + 1) % players.length);
     resetDice();
@@ -48,12 +49,12 @@ const Game: React.FC = () => {
     setPreviousCell(null);
     setLockedStarCell(null);
     setIsStarLockClicked(false);
-    setLastRollCount(5);
+    setLastRollCount(dice.filter((die) => !die.locked).length);
   };
 
   const handleCellClick = (row: number, col: number) => {
     setIsStarLockClicked(false);
-    if (rolls === 0) return;
+    if (rollCount === 0) return;
     if (ROWS[row] === "") return;
     if (hasWrittenThisTurn) return;
     if (
@@ -120,14 +121,14 @@ const Game: React.FC = () => {
 
       <DiceRow
         dice={dice}
-        rolls={rolls}
+        rollCount={rollCount}
         hasWrittenThisTurn={hasWrittenThisTurn}
         isRolling={isRolling}
         setDice={setDice}
       />
 
       <Buttons
-        rolls={rolls}
+        rollCount={rollCount}
         lastRollCount={lastRollCount}
         hasWrittenThisTurn={hasWrittenThisTurn}
         previousCell={previousCell}

@@ -10,14 +10,12 @@ export function generateDice() {
   }));
 }
 
-export const createEmptyScoreTable = (players: Player[]) => {
+export const createEmptyScoreTable = (players: Player[]) =>
   players.map(() => ROWS.map(() => Array(COLUMNS.length).fill(null)));
-};
 
-export const createEmptyPlayerTotals = (players: Player[]) => {
+export const createEmptyPlayerTotals = (players: Player[]) =>
   players.map(() => ({
     top: Array(COLUMNS.length).fill(0),
     mid: Array(COLUMNS.length).fill(0),
     bottom: Array(COLUMNS.length).fill(0),
   }));
-};

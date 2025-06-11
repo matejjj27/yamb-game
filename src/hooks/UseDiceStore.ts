@@ -61,7 +61,7 @@ export const useDiceStore = create<DiceStore>()(
         }),
     }),
     {
-      name: "dice-data",
+      name: "dice-store-yamb",
     }
   )
 );

@@ -19,7 +19,7 @@ export const useGameStore = create<GameStore>()(
         }),
     }),
     {
-      name: "yamb-game-data",
+      name: "game-store-yamb",
     }
   )
 );

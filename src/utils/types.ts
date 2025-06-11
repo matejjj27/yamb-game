@@ -67,3 +67,26 @@ export interface ScoreTableProps {
   lockedStarCell: LockedCell | null;
   handleCellClick: (row: number, col: number) => void;
 }
+
+export type GameStore = {
+  players: Player[];
+  currentPlayer: number;
+  gameStarted: boolean;
+  setGameStarted: (gameStarted: boolean) => void;
+  setPlayers: (players: Player[]) => void;
+  setCurrentPlayer: (index: number) => void;
+  resetGame: () => void;
+};
+
+export type DiceStore = {
+  dice: Dice[];
+  rollCount: number;
+  lastRollCount: number;
+  isRolling: boolean;
+  setDice: (dice: Dice[]) => void;
+  setRollCount: (count: number) => void;
+  setLastRollCount: (count: number) => void;
+  setIsRolling: (rolling: boolean) => void;
+  rollDice: () => void;
+  resetDice: () => void;
+};

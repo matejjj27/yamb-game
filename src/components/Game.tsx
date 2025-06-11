@@ -22,7 +22,6 @@ const Game: React.FC = () => {
     isRolling,
     rollDice,
     resetDice,
-    setLastRollCount,
   } = useDiceStore();
 
   const {
@@ -49,7 +48,6 @@ const Game: React.FC = () => {
     setPreviousCell(null);
     setLockedStarCell(null);
     setIsStarLockClicked(false);
-    setLastRollCount(dice.filter((die) => !die.locked).length);
   };
 
   const handleCellClick = (row: number, col: number) => {

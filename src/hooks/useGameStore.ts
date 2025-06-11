@@ -1,18 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { Player } from "../utils/types";
+import { GameStore } from "../utils/types";
 
-type GameState = {
-  players: Player[];
-  currentPlayer: number;
-  gameStarted: boolean;
-  setGameStarted: (gameStarted: boolean) => void;
-  setPlayers: (players: Player[]) => void;
-  setCurrentPlayer: (index: number) => void;
-  resetGame: () => void;
-};
-
-export const useGameStore = create<GameState>()(
+export const useGameStore = create<GameStore>()(
   persist(
     (set) => ({
       players: [],

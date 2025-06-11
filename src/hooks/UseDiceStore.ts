@@ -1,21 +1,8 @@
 import { create } from "zustand";
-import { Dice } from "../utils/types";
+import { DiceStore } from "../utils/types";
 import { generateDice } from "../utils/functions";
 import { MAX_ROLLS } from "../utils/constants";
 import { persist } from "zustand/middleware";
-
-type DiceStore = {
-  dice: Dice[];
-  rollCount: number;
-  lastRollCount: number;
-  isRolling: boolean;
-  setDice: (dice: Dice[]) => void;
-  setRollCount: (count: number) => void;
-  setLastRollCount: (count: number) => void;
-  setIsRolling: (rolling: boolean) => void;
-  rollDice: () => void;
-  resetDice: () => void;
-};
 
 export const useDiceStore = create<DiceStore>()(
   persist(
@@ -60,7 +47,6 @@ export const useDiceStore = create<DiceStore>()(
               )
             );
             const rolledDice = dice.filter((die) => !die.locked);
-            console.log("Rolled Dice:", rolledDice.length);
             setLastRollCount(rolledDice.length);
             setIsRolling(false);
           }, 300);
@@ -71,7 +57,7 @@ export const useDiceStore = create<DiceStore>()(
         set({
           dice: generateDice(),
           rollCount: 0,
-          //   lastRollCount: 5,
+          lastRollCount: 5,
         }),
     }),
     {

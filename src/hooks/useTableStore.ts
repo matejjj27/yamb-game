@@ -1,47 +1,10 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import {
-  Dice,
-  LockedCell,
-  Player,
-  PlayerTotals,
-  Section,
-} from "../utils/types";
+import { Player, Section, TableStore } from "../utils/types";
 import {
   createEmptyPlayerTotals,
   createEmptyScoreTable,
 } from "../utils/functions";
-
-type TableStore = {
-  scoreTable: (number | null)[][][];
-  totals: PlayerTotals[];
-  previousCell: number[] | null;
-  hasWrittenThisTurn: boolean;
-  lockedStarCell: LockedCell | null;
-  isStarLockClicked: boolean;
-  setScoreTable: (table: (number | null)[][][]) => void;
-  setPreviousCell: (cell: number[] | null) => void;
-  setHasWrittenThisTurn: (hasWritten: boolean) => void;
-  setLockedStarCell: (cell: LockedCell | null) => void;
-  setIsStarLockClicked: (hasClicked: boolean) => void;
-  setTotals: (totals: PlayerTotals[]) => void;
-  calculateAndFill: (
-    dice: Dice[],
-    playerIndex: number,
-    row: number,
-    col: number
-  ) => void;
-  calculateSectionColumnTotal: (
-    playerIndex: number,
-    col: number,
-    row: number,
-    section: Section
-  ) => void;
-  undoWriting: (playerIndex: number) => void;
-  recalculateTotalsForPlayer: (playerIndex: number) => void;
-  initializeScoreTable: (players: Player[]) => void;
-  resetScore: () => void;
-};
 
 export const useTableStore = create<TableStore>()(
   persist(

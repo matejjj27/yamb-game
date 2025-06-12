@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { useGameStore } from "../hooks/useGameStore";
+import { useTableStore } from "../hooks/useTableStore";
 
 const LandingPage: React.FC = () => {
   const [numPlayers, setNumPlayers] = useState(2);
   const [playerNames, setPlayerNames] = useState(["", ""]);
   const [error, setError] = useState("");
   const { setPlayers, setGameStarted } = useGameStore();
+  const { initializeScoreTable } = useTableStore();
 
   const startGame = (names: string[]) => {
     const players = names.map((name) => ({
       id: crypto.randomUUID(),
       name,
     }));
+    initializeScoreTable(players);
     setPlayers(players);
     setGameStarted(true);
   };

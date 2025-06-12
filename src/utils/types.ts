@@ -53,11 +53,11 @@ export interface ButtonsProps {
   viewedPlayerIndex: number;
   lockedStarCell: LockedCell | null;
   isStarLockClicked: boolean;
-  setIsStarLockClicked: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsStarLockClicked: (hasClicked: boolean) => void;
   rollDice: () => void;
   endTurn: () => void;
   undoWriting: (playerIndex: number) => void;
-  lockInCell: React.Dispatch<React.SetStateAction<LockedCell | null>>;
+  lockInCell: (cell: LockedCell | null) => void;
 }
 
 export interface ScoreTableProps {

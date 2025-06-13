@@ -6,15 +6,18 @@ export const useGameStore = create<GameStore>()(
   persist(
     (set) => ({
       players: [],
-      currentPlayer: 0,
+      currentPlayerIndex: 0,
+      viewedPlayerIndex: 0,
       gameStarted: false,
       setGameStarted: (gameStarted) => set({ gameStarted }),
       setPlayers: (players) => set({ players }),
-      setCurrentPlayer: (index) => set({ currentPlayer: index }),
+      setCurrentPlayerIndex: (index) => set({ currentPlayerIndex: index }),
+      setViewedPlayerIndex: (index) => set({ viewedPlayerIndex: index }),
       resetGame: () =>
         set({
           players: [],
-          currentPlayer: 0,
+          currentPlayerIndex: 0,
+          viewedPlayerIndex: 0,
           gameStarted: false,
         }),
     }),

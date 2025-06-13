@@ -20,7 +20,7 @@ export type Dice = {
 export interface PlayerListProps {
   players: Player[];
   currentPlayerIndex: number;
-  setViewedPlayerIndex: React.Dispatch<React.SetStateAction<number>>;
+  setViewedPlayerIndex: (index: number) => void;
 }
 
 export interface LockedCell {
@@ -70,11 +70,13 @@ export interface ScoreTableProps {
 
 export type GameStore = {
   players: Player[];
-  currentPlayer: number;
+  currentPlayerIndex: number;
+  viewedPlayerIndex: number;
   gameStarted: boolean;
   setGameStarted: (gameStarted: boolean) => void;
   setPlayers: (players: Player[]) => void;
-  setCurrentPlayer: (index: number) => void;
+  setCurrentPlayerIndex: (index: number) => void;
+  setViewedPlayerIndex: (index: number) => void;
   resetGame: () => void;
 };
 

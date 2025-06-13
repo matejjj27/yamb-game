@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { ROWS, COLUMNS } from "../utils/constants";
 import Buttons from "./Buttons";
 import DiceRow from "./DiceRow";
@@ -10,9 +9,13 @@ import { useDiceStore } from "../hooks/UseDiceStore";
 import { useTableStore } from "../hooks/useTableStore";
 
 const Game: React.FC = () => {
-  const [currentPlayerIndex, setCurrentPlayerIndex] = useState<number>(0);
-  const [viewedPlayerIndex, setViewedPlayerIndex] = useState<number>(0);
-  const { players } = useGameStore();
+  const {
+    players,
+    currentPlayerIndex,
+    viewedPlayerIndex,
+    setCurrentPlayerIndex,
+    setViewedPlayerIndex,
+  } = useGameStore();
 
   const {
     dice,
@@ -41,8 +44,8 @@ const Game: React.FC = () => {
 
   const endTurn = () => {
     if (lockedStarCell && rollCount > 0 && !hasWrittenThisTurn) return;
-    setCurrentPlayerIndex((prev) => (prev + 1) % players.length);
-    setViewedPlayerIndex((prev) => (prev + 1) % players.length);
+    setCurrentPlayerIndex((currentPlayerIndex + 1) % players.length);
+    setViewedPlayerIndex((viewedPlayerIndex + 1) % players.length);
     resetDice();
     setHasWrittenThisTurn(false);
     setPreviousCell(null);

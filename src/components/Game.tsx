@@ -17,20 +17,10 @@ const Game: React.FC = () => {
     setViewedPlayerIndex,
   } = useGameStore();
 
-  const {
-    dice,
-    setDice,
-    rollCount,
-    lastRollCount,
-    isRolling,
-    rollDice,
-    resetDice,
-  } = useDiceStore();
+  const { dice, rollCount, lastRollCount, resetDice } = useDiceStore();
 
   const {
     scoreTable,
-    totals,
-    previousCell,
     setPreviousCell,
     hasWrittenThisTurn,
     setHasWrittenThisTurn,
@@ -39,7 +29,6 @@ const Game: React.FC = () => {
     lockedStarCell,
     setLockedStarCell,
     calculateAndFill,
-    undoWriting,
   } = useTableStore();
 
   const endTurn = () => {
@@ -125,28 +114,22 @@ const Game: React.FC = () => {
         dice={dice}
         rollCount={rollCount}
         hasWrittenThisTurn={hasWrittenThisTurn}
-        isRolling={isRolling}
-        setDice={setDice}
       />
 
       <Buttons
         rollCount={rollCount}
         lastRollCount={lastRollCount}
         hasWrittenThisTurn={hasWrittenThisTurn}
-        previousCell={previousCell}
         currentPlayerIndex={currentPlayerIndex}
         viewedPlayerIndex={viewedPlayerIndex}
         lockedStarCell={lockedStarCell}
         isStarLockClicked={isStarLockClicked}
         setIsStarLockClicked={setIsStarLockClicked}
-        rollDice={rollDice}
         endTurn={endTurn}
-        undoWriting={undoWriting}
         lockInCell={setLockedStarCell}
       />
 
       <ScoreTable
-        totals={totals}
         scoreTable={scoreTable}
         viewedPlayerIndex={viewedPlayerIndex}
         lockedStarCell={lockedStarCell}

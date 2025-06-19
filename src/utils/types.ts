@@ -32,8 +32,6 @@ export interface DiceRowProps {
   dice: Dice[];
   rollCount: number;
   hasWrittenThisTurn: boolean;
-  isRolling: boolean;
-  setDice: (dice: Dice[]) => void;
 }
 
 export interface LandingPageProps {
@@ -48,20 +46,16 @@ export interface ButtonsProps {
   rollCount: number;
   lastRollCount: number;
   hasWrittenThisTurn: boolean;
-  previousCell: number[] | null;
   currentPlayerIndex: number;
   viewedPlayerIndex: number;
   lockedStarCell: LockedCell | null;
   isStarLockClicked: boolean;
   setIsStarLockClicked: (hasClicked: boolean) => void;
-  rollDice: () => void;
   endTurn: () => void;
-  undoWriting: (playerIndex: number) => void;
   lockInCell: (cell: LockedCell | null) => void;
 }
 
 export interface ScoreTableProps {
-  totals: PlayerTotals[];
   scoreTable: any[][][];
   viewedPlayerIndex: number;
   lockedStarCell: LockedCell | null;

@@ -1,14 +1,14 @@
 import React from "react";
 import { DiceRowProps } from "../utils/types";
 import { diceDots } from "../utils/constants";
+import { useDiceStore } from "../hooks/useDiceStore";
 
 const DiceRow: React.FC<DiceRowProps> = ({
   dice,
   rollCount,
   hasWrittenThisTurn,
-  isRolling,
-  setDice,
 }) => {
+  const { setDice, isRolling } = useDiceStore();
   const handleDiceClick = (id: string) => {
     if (hasWrittenThisTurn) return;
     if (rollCount === 0) return;

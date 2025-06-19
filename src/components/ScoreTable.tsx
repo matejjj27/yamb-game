@@ -1,14 +1,15 @@
 import React from "react";
 import { ScoreTableProps } from "../utils/types";
 import { COLUMNS, ROWS } from "../utils/constants";
+import { useTableStore } from "../hooks/useTableStore";
 
 const ScoreTable: React.FC<ScoreTableProps> = ({
-  totals,
   scoreTable,
   viewedPlayerIndex,
   lockedStarCell,
   handleCellClick,
 }) => {
+  const { totals } = useTableStore();
   return (
     <div className="table-container">
       <table className="score-table">
@@ -33,10 +34,10 @@ const ScoreTable: React.FC<ScoreTableProps> = ({
                         {rowIdx === 6
                           ? totals[viewedPlayerIndex].top[colIdx]
                           : rowIdx === 9
-                            ? totals[viewedPlayerIndex].mid[colIdx]
-                            : rowIdx === 14
-                              ? totals[viewedPlayerIndex].bottom[colIdx]
-                              : ""}
+                          ? totals[viewedPlayerIndex].mid[colIdx]
+                          : rowIdx === 14
+                          ? totals[viewedPlayerIndex].bottom[colIdx]
+                          : ""}
                       </strong>
                     </td>
                   ))
@@ -47,15 +48,16 @@ const ScoreTable: React.FC<ScoreTableProps> = ({
                     return (
                       <td
                         key={colIdx}
-                        className={`clickable ${label === "" ? "no-border" : ""}`}
+                        className={`clickable ${
+                          label === "" ? "no-border" : ""
+                        }`}
                         onClick={() => handleCellClick(rowIdx, colIdx)}
                         style={{
                           backgroundColor: isLocked ? "#8BC34A" : "",
                         }}
                       >
                         {label !== ""
-                          ? (scoreTable[viewedPlayerIndex][rowIdx][colIdx] ??
-                            "")
+                          ? scoreTable[viewedPlayerIndex][rowIdx][colIdx] ?? ""
                           : ""}
                       </td>
                     );

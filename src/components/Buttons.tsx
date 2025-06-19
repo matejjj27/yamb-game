@@ -1,22 +1,23 @@
 import React from "react";
 import { ButtonsProps } from "../utils/types";
 import { MAX_ROLLS } from "../utils/constants";
+import { useDiceStore } from "../hooks/useDiceStore";
+import { useTableStore } from "../hooks/useTableStore";
 
 const Buttons: React.FC<ButtonsProps> = ({
   rollCount,
   lastRollCount,
   hasWrittenThisTurn,
-  previousCell,
   currentPlayerIndex,
   viewedPlayerIndex,
   lockedStarCell,
   isStarLockClicked,
   setIsStarLockClicked,
-  rollDice,
   endTurn,
-  undoWriting,
   lockInCell,
 }) => {
+  const { rollDice } = useDiceStore();
+  const { previousCell, undoWriting } = useTableStore();
   const hasTurn = currentPlayerIndex === viewedPlayerIndex;
   const isLockButtonDisabled =
     !hasTurn ||

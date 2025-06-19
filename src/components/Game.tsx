@@ -5,7 +5,7 @@ import Legend from "./Legend";
 import PlayerList from "./PlayerList";
 import ScoreTable from "./ScoreTable";
 import { useGameStore } from "../hooks/useGameStore";
-import { useDiceStore } from "../hooks/UseDiceStore";
+import { useDiceStore } from "../hooks/useDiceStore";
 import { useTableStore } from "../hooks/useTableStore";
 
 const Game: React.FC = () => {

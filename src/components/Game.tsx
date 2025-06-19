@@ -55,12 +55,13 @@ const Game: React.FC = () => {
 
   const handleCellClick = (row: number, col: number) => {
     setIsStarLockClicked(false);
-    if (rollCount === 0) return;
-    if (ROWS[row] === "") return;
-    if (hasWrittenThisTurn) return;
     if (
-      lockedStarCell &&
-      (lockedStarCell?.rowId !== row || lockedStarCell?.colId !== col)
+      currentPlayerIndex !== viewedPlayerIndex ||
+      rollCount === 0 ||
+      ROWS[row] === "" ||
+      hasWrittenThisTurn ||
+      (lockedStarCell &&
+        (lockedStarCell?.rowId !== row || lockedStarCell?.colId !== col))
     )
       return;
     if (

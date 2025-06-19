@@ -26,7 +26,10 @@ const Buttons: React.FC<ButtonsProps> = ({
     lastRollCount !== 5;
 
   const isRollButtonDisabled =
-    rollCount >= MAX_ROLLS || hasWrittenThisTurn || !hasTurn || isStarLockClicked;
+    rollCount >= MAX_ROLLS ||
+    hasWrittenThisTurn ||
+    !hasTurn ||
+    isStarLockClicked;
 
   return (
     <div className="buttons">
@@ -40,7 +43,7 @@ const Buttons: React.FC<ButtonsProps> = ({
       <button
         className="primary"
         onClick={endTurn}
-        disabled={!hasWrittenThisTurn}
+        disabled={!hasWrittenThisTurn || !hasTurn}
       >
         End Turn
       </button>
@@ -64,8 +67,8 @@ const Buttons: React.FC<ButtonsProps> = ({
         {!isStarLockClicked && !lockedStarCell
           ? "⭐ Lock"
           : isStarLockClicked && !lockedStarCell
-            ? "Select"
-            : "Undo Lock"}
+          ? "Select"
+          : "Undo Lock"}
       </button>
     </div>
   );

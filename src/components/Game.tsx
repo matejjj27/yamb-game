@@ -31,6 +31,8 @@ const Game: React.FC = () => {
     calculateAndFill,
   } = useTableStore();
 
+  console.log(scoreTable, "scoreTable");
+
   const endTurn = () => {
     if (lockedStarCell && rollCount > 0 && !hasWrittenThisTurn) return;
     setCurrentPlayerIndex((currentPlayerIndex + 1) % players.length);

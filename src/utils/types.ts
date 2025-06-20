@@ -56,7 +56,7 @@ export interface ButtonsProps {
 }
 
 export interface ScoreTableProps {
-  scoreTable: any[][][];
+  scoreTable: (number | null)[][][];
   viewedPlayerIndex: number;
   lockedStarCell: LockedCell | null;
   handleCellClick: (row: number, col: number) => void;

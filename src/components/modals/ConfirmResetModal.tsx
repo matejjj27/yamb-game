@@ -1,10 +1,5 @@
 import React from "react";
-
-type ConfirmResetModalProps = {
-  isOpen: boolean;
-  onConfirm: () => void;
-  onCancel: () => void;
-};
+import { ConfirmResetModalProps } from "../../utils/types";
 
 const ConfirmResetModal: React.FC<ConfirmResetModalProps> = ({
   isOpen,

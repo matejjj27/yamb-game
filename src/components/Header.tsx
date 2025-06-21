@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ConfirmResetModal from "./ConfirmResetModal";
+import ConfirmResetModal from "./modals/ConfirmResetModal";
 import { useGameStore } from "../hooks/useGameStore";
 
 const Header: React.FC = () => {

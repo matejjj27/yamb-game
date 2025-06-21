@@ -15,6 +15,9 @@ export const useTableStore = create<TableStore>()(
       hasWrittenThisTurn: false,
       lockedStarCell: null,
       isStarLockClicked: false,
+      hasGameEnded: false,
+      winnerInfo: null,
+      setHasGameEnded: (ended) => set({ hasGameEnded: ended }),
       setScoreTable: (table: (number | null)[][][]) =>
         set({ scoreTable: table }),
       setPreviousCell: (cell) => set({ previousCell: cell }),
@@ -22,6 +25,7 @@ export const useTableStore = create<TableStore>()(
       setLockedStarCell: (cell) => set({ lockedStarCell: cell }),
       setIsStarLockClicked: (clicked) => set({ isStarLockClicked: clicked }),
       setTotals: (totals) => set({ totals }),
+      setWinnerInfo: (info) => set({ winnerInfo: info }),
       calculateAndFill: (dice, playerIndex, row, col) =>
         set(({ scoreTable, calculateSectionColumnTotal }) => {
           const values = dice.map((d) => d.value);
@@ -173,7 +177,7 @@ export const useTableStore = create<TableStore>()(
 
             newTotals.top[col] = top <= 60 ? top : top + 30;
             newTotals.mid[col] =
-              max !== null && min !== null && firstRowVal !== null
+              max !== null && min !== null && firstRowVal !== null && max > min
                 ? (max - min) * firstRowVal
                 : 0;
             newTotals.bottom[col] = bottom;
@@ -185,8 +189,9 @@ export const useTableStore = create<TableStore>()(
         }),
       initializeScoreTable: (players: Player[]) =>
         set(() => {
+          const table = createEmptyScoreTable(players);
           return {
-            scoreTable: createEmptyScoreTable(players),
+            scoreTable: table,
             totals: createEmptyPlayerTotals(players),
           };
         }),
@@ -194,10 +199,36 @@ export const useTableStore = create<TableStore>()(
         set({
           scoreTable: [],
           totals: [],
+          hasGameEnded: false,
+          winnerInfo: null,
           previousCell: null,
           hasWrittenThisTurn: false,
           lockedStarCell: null,
           isStarLockClicked: false,
+        }),
+      handleGameEnd: () =>
+        set(({ totals }) => {
+          const playerScores = totals.map((player) => {
+            const top = player.top.reduce(
+              (sum: number, cell) => sum + (cell || 0),
+              0
+            );
+            const mid = player.mid.reduce(
+              (sum: number, cell) => sum + (cell || 0),
+              0
+            );
+            const bottom = player.bottom.reduce(
+              (sum: number, cell) => sum + (cell || 0),
+              0
+            );
+            return top + mid + bottom;
+          });
+
+          const maxScore = Math.max(...playerScores);
+          const winner = playerScores
+            .map((score, idx) => ({ score, idx }))
+            .find((p) => p.score === maxScore);
+          return { hasGameEnded: true, winnerInfo: winner };
         }),
     }),
     {

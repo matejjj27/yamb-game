@@ -94,12 +94,15 @@ export type TableStore = {
   hasWrittenThisTurn: boolean;
   lockedStarCell: LockedCell | null;
   isStarLockClicked: boolean;
+  hasGameEnded: boolean;
+  winnerInfo: { idx: number; score: number } | null;
   setScoreTable: (table: (number | null)[][][]) => void;
   setPreviousCell: (cell: number[] | null) => void;
   setHasWrittenThisTurn: (hasWritten: boolean) => void;
   setLockedStarCell: (cell: LockedCell | null) => void;
   setIsStarLockClicked: (hasClicked: boolean) => void;
   setTotals: (totals: PlayerTotals[]) => void;
+  setWinnerInfo: (info: { idx: number; score: number } | null) => void;
   calculateAndFill: (
     dice: Dice[],
     playerIndex: number,
@@ -116,4 +119,16 @@ export type TableStore = {
   recalculateTotalsForPlayer: (playerIndex: number) => void;
   initializeScoreTable: (players: Player[]) => void;
   resetScore: () => void;
+  handleGameEnd: () => void;
+  setHasGameEnded: (hasGameEnded: boolean) => void;
+};
+
+export type ConfirmResetModalProps = {
+  isOpen: boolean;
+  onConfirm: () => void;
+  onCancel: () => void;
+};
+
+export type WinnerModalProps = {
+  isOpen: boolean;
 };

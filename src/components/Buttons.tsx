@@ -16,7 +16,7 @@ const Buttons: React.FC<ButtonsProps> = ({
   endTurn,
   lockInCell,
 }) => {
-  const { rollDice } = useDiceStore();
+  const { rollDice, isRolling } = useDiceStore();
   const { hasGameEnded, previousCell, undoWriting } = useTableStore();
   const hasTurn = currentPlayerIndex === viewedPlayerIndex;
   const isLockButtonDisabled =
@@ -31,16 +31,23 @@ const Buttons: React.FC<ButtonsProps> = ({
     hasWrittenThisTurn ||
     !hasTurn ||
     isStarLockClicked ||
-    hasGameEnded;
+    hasGameEnded ||
+    isRolling;
 
   return (
     <div className="buttons">
       <button
-        className="primary"
+        className="primary roll-button"
         onClick={rollDice}
         disabled={isRollButtonDisabled}
       >
-        Roll ({rollCount}/{MAX_ROLLS})
+        {isRolling ? (
+          <span className="spinner" />
+        ) : (
+          <>
+            Roll ({rollCount}/{MAX_ROLLS})
+          </>
+        )}
       </button>
       <button
         className="primary"

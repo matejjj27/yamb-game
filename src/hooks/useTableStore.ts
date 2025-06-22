@@ -228,7 +228,16 @@ export const useTableStore = create<TableStore>()(
           const winner = playerScores
             .map((score, idx) => ({ score, idx }))
             .find((p) => p.score === maxScore);
-          return { hasGameEnded: true, winnerInfo: winner };
+
+          const updatedTotals = totals.map((total, id) => {
+            total.grandTotal = playerScores[id];
+            return total;
+          });
+          return {
+            hasGameEnded: true,
+            winnerInfo: winner,
+            totals: updatedTotals,
+          };
         }),
     }),
     {

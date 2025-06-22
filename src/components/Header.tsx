@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import ConfirmResetModal from "./modals/ConfirmResetModal";
 import { useGameStore } from "../hooks/useGameStore";
+import { useTableStore } from "../hooks/useTableStore";
+import { useDiceStore } from "../hooks/useDiceStore";
 
 const Header: React.FC = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
-  const { resetGame, gameStarted, setGameStarted } = useGameStore();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { resetGame, gameStarted } = useGameStore();
+  const { resetScore } = useTableStore();
+  const { resetDice } = useDiceStore();
 
   const handleConfirm = () => {
     resetGame();
-    setModalOpen(false);
-    setGameStarted(false);
+    resetDice();
+    resetScore();
+    setIsModalOpen(false);
   };
 
   return (
@@ -17,11 +22,11 @@ const Header: React.FC = () => {
       <ConfirmResetModal
         isOpen={isModalOpen}
         onConfirm={handleConfirm}
-        onCancel={() => setModalOpen(false)}
+        onCancel={() => setIsModalOpen(false)}
       />
 
       {gameStarted && (
-        <button className="new-game-btn" onClick={() => setModalOpen(true)}>
+        <button className="new-game-btn" onClick={() => setIsModalOpen(true)}>
           New Game
         </button>
       )}

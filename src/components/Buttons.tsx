@@ -17,7 +17,7 @@ const Buttons: React.FC<ButtonsProps> = ({
   lockInCell,
 }) => {
   const { rollDice } = useDiceStore();
-  const { previousCell, undoWriting } = useTableStore();
+  const { hasGameEnded, previousCell, undoWriting } = useTableStore();
   const hasTurn = currentPlayerIndex === viewedPlayerIndex;
   const isLockButtonDisabled =
     !hasTurn ||
@@ -30,7 +30,8 @@ const Buttons: React.FC<ButtonsProps> = ({
     rollCount >= MAX_ROLLS ||
     hasWrittenThisTurn ||
     !hasTurn ||
-    isStarLockClicked;
+    isStarLockClicked ||
+    hasGameEnded;
 
   return (
     <div className="buttons">
@@ -44,14 +45,14 @@ const Buttons: React.FC<ButtonsProps> = ({
       <button
         className="primary"
         onClick={endTurn}
-        disabled={!hasWrittenThisTurn || !hasTurn}
+        disabled={!hasWrittenThisTurn || !hasTurn || hasGameEnded}
       >
         End Turn
       </button>
       <button
         className="primary"
         onClick={() => undoWriting(currentPlayerIndex)}
-        disabled={!previousCell || !hasTurn}
+        disabled={!previousCell || !hasTurn || hasGameEnded}
       >
         Undo
       </button>

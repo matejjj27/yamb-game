@@ -9,8 +9,9 @@ import { useDiceStore } from "../hooks/useDiceStore";
 import { useTableStore } from "../hooks/useTableStore";
 import { isGameOver } from "../utils/functions";
 import WinnerModal from "./modals/WinnerModal";
+import { FC, useEffect, useState } from "react";
 
-const Game: React.FC = () => {
+const Game: FC = () => {
   const {
     players,
     currentPlayerIndex,
@@ -36,6 +37,12 @@ const Game: React.FC = () => {
     handleGameEnd,
     recalculateTotalsForPlayer,
   } = useTableStore();
+
+  const [isWinnerModalOpen, setIsWinnerModalOpen] = useState(false);
+
+  useEffect(() => {
+    setIsWinnerModalOpen(hasGameEnded && Boolean(winnerInfo));
+  }, [winnerInfo, hasGameEnded]);
 
   const endTurn = () => {
     if (lockedStarCell && rollCount > 0 && !hasWrittenThisTurn) return;
@@ -149,7 +156,10 @@ const Game: React.FC = () => {
 
       <Legend />
 
-      <WinnerModal isOpen={!!(hasGameEnded && winnerInfo)} />
+      <WinnerModal
+        isOpen={isWinnerModalOpen}
+        setIsWinnerModalOpen={setIsWinnerModalOpen}
+      />
     </>
   );
 };

@@ -4,6 +4,7 @@ export type PlayerTotals = {
   top: number[];
   mid: number[];
   bottom: number[];
+  grandTotal?: number;
 };
 
 export interface Player {
@@ -131,4 +132,5 @@ export type ConfirmResetModalProps = {
 
 export type WinnerModalProps = {
   isOpen: boolean;
+  setIsWinnerModalOpen: (isOpen: boolean) => void;
 };

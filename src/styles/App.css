@@ -123,7 +123,7 @@ header {
 }
 
 .dice-rolling {
-  animation: roll 0.3s ease;
+  animation: roll 0.4s ease;
 }
 
 .die.locked {

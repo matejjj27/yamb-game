@@ -4,6 +4,9 @@ import { generateDice } from "../utils/functions";
 import { MAX_ROLLS } from "../utils/constants";
 import { persist } from "zustand/middleware";
 
+const diceRollSound = new Audio("/dice-roll.mp3");
+diceRollSound.preload = "auto";
+
 export const useDiceStore = create<DiceStore>()(
   persist(
     (set, get) => ({
@@ -29,6 +32,9 @@ export const useDiceStore = create<DiceStore>()(
         if (rollCount === 0) {
           setIsRolling(true);
 
+          diceRollSound.currentTime = 0;
+          diceRollSound.play().catch(console.warn);
+
           const tempDice = dice.map((d) =>
             d.locked ? d : { ...d, value: Math.ceil(Math.random() * 6) }
           );
@@ -37,9 +43,12 @@ export const useDiceStore = create<DiceStore>()(
           setTimeout(() => {
             setDice(generateDice());
             setIsRolling(false);
-          }, 300);
+          }, 400);
         } else {
           setIsRolling(true);
+          diceRollSound.currentTime = 0;
+          diceRollSound.play().catch(console.warn);
+
           setTimeout(() => {
             setDice(
               dice.map((d) =>
@@ -49,7 +58,7 @@ export const useDiceStore = create<DiceStore>()(
             const rolledDice = dice.filter((die) => !die.locked);
             setLastRollCount(rolledDice.length);
             setIsRolling(false);
-          }, 300);
+          }, 400);
         }
         setRollCount(rollCount + 1);
       },

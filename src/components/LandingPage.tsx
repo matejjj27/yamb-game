@@ -43,7 +43,10 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className="landing-container">
-      <h1 className="landing-title">🎲 Welcome to Yamb</h1>
+      <header className="landing-header">
+        <h1 className="landing-title">🎲 Yamb Game</h1>
+        <p className="landing-subtitle">Setup your game and get rolling!</p>
+      </header>
       <div className="form-section">
         <label className="form-label">
           Number of Players:

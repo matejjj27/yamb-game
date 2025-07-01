@@ -295,7 +295,6 @@ body.dark .primary:hover:not(:disabled) {
   display: flex;
   flex-direction: column;
   min-width: 360px;
-  background-color: green;
 }
 
 @media (max-width: 600px) {
@@ -574,7 +573,7 @@ body.dark .new-game-btn:hover {
 
 .start-button {
   padding: 8px 16px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   background-color: #4caf50;
   color: white;
   border: none;

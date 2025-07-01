@@ -283,33 +283,62 @@ body.dark .primary:hover:not(:disabled) {
 }
 
 .landing-subtitle {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-}
-
-.landing-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
 }
 
 .form-section {
-  padding: 2rem;
+  font-size: 0.9rem;
+  padding: 1rem 2rem 1.5rem 2rem;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  min-width: 360px;
+  background-color: green;
 }
 
-.player-select,
-.player-name-input {
-  margin: 0.5rem 0;
-  padding: 0.5rem;
-  width: 200px;
+@media (max-width: 600px) {
+  .form-section {
+    min-width: 280px;
+  }
+}
+
+@media (max-width: 400px) {
+  .form-section {
+    min-width: 180px;
+  }
+}
+
+.form-label {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 94%;
+}
+
+.form-label-select {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.player-select {
+  padding: 0.3rem;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: white;
   color: #222;
+}
+
+.player-name-input {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  color: #222;
+  width: 100%;
 }
 
 .start-button {
@@ -364,8 +393,12 @@ body.dark .start-button:hover {
   display: flex;
 }
 
-.form-label {
-  font-weight: 500;
+.landing-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
 }
 
 .landing-title {
@@ -531,4 +564,26 @@ body.dark .new-game-btn:hover {
   visibility: hidden;
   opacity: 0;
   height: auto;
+}
+
+.error-message {
+  color: #b00020;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.start-button {
+  padding: 8px 16px;
+  font-size: 1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  align-self: center;
+  transition: background-color 0.2s ease;
+}
+
+.start-button:hover {
+  background-color: #388e3c;
 }
